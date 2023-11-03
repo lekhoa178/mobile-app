@@ -8,7 +8,7 @@ const definitions = [
   {
     id: 3,
     definition:
-      'Meaningfdggggggggggggggggggggggggggggggggggggggggggggggggggggg 3',
+      'Meaningfdgggg 3',
   },
 ];
 

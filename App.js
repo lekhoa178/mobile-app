@@ -44,7 +44,7 @@ export default function App() {
           options={{
             // headerShown: false,
             tabBarVisible: false,
-            tabBarLabel: 'Seach homepage',
+            tabBarLabel: 'a',
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name='home' color={color} size={size} />
             ),

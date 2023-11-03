@@ -10,7 +10,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <SearchPanel />
+        {/* <SearchPanel /> */}
         <WordPanel />
         <SearchHistory />
       </SafeAreaView>

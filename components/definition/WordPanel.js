@@ -8,7 +8,7 @@ import Tts from 'react-native-tts';
 function WordPanel() {
   const [favorite, setFavourite] = useState(false);
 
-  Tts.speak('Hello, World');
+  // Tts.speak('Hello, World');
 
   function favor() {
     setFavourite(!favorite);
@@ -27,7 +27,6 @@ function WordPanel() {
           )}
         </Pressable>
       </View>
-      {/* <Text>fdjadaekffjdsjg</Text> */}
     </View>
   );
 }
