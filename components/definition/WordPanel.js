@@ -3,12 +3,11 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
 import Volume from '../ui/Volume';
 import Title from '../ui/Title';
-import Tts from 'react-native-tts';
+
+const word = 'Myth';
 
 function WordPanel() {
   const [favorite, setFavourite] = useState(false);
-
-  // Tts.speak('Hello, World');
 
   function favor() {
     setFavourite(!favorite);
@@ -16,9 +15,9 @@ function WordPanel() {
 
   return (
     <View style={styles.container}>
-      <Title>Myth</Title>
+      <Title>{word}</Title>
       <View style={styles.utilityContainer}>
-        <Volume style={styles.volume} />
+        <Volume style={styles.volume} word={word} />
         <Pressable onPress={favor}>
           {favorite ? (
             <FontAwesome name='heart' size={35} color={'#7599FF'} />
