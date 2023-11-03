@@ -14,14 +14,14 @@ const definitions = [
 
 function MeaningPanel() {
   return (
-    <ScrollView>
-      <View style={styles.definitionContainer}>
-        <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
-        <DefinitionBody data={definitions} />
-        <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
-        <DefinitionBody data={definitions} />
-      </View>
-    </ScrollView>
+    // <ScrollView>
+    <View style={styles.definitionContainer}>
+      <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
+      <DefinitionBody data={definitions} />
+      <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
+      <DefinitionBody data={definitions} />
+    </View>
+    // </ScrollView>
   );
 }
 
