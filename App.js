@@ -20,6 +20,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import SearchComponent from './components/navigation/SearchComponent';
 import RightBarHeader from './components/navigation/RightBarHeader';
 import LeftBarHeader from './components/navigation/LeftBarHeader';
+import { Entypo } from '@expo/vector-icons';
+import LoginScreen from './screens/LoginScreen';
+
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -31,7 +34,7 @@ export default function App() {
     //   <SearchPanel />
     //   <DefinitionScreen />
     // </SafeAreaView>
-    <NavigationContainer>
+    <NavigationContainer >
       <Tab.Navigator
         initialRouteName='Home'
         tabBarOptions={{
@@ -44,7 +47,7 @@ export default function App() {
           options={{
             // headerShown: false,
             tabBarVisible: false,
-            tabBarLabel: 'a',
+            tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name='home' color={color} size={size} />
             ),
@@ -77,6 +80,30 @@ export default function App() {
             headerRight: () => {
               return <RightBarHeader />;
             },
+
+            headerLeft: () => {
+              return (
+                <Ionicons
+                  name='arrow-back-sharp'
+                  size={24}
+                  color='#2499FF'
+                  style={{ marginLeft: 10 }}
+                />
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name='LoginScreen'
+          component={LoginScreen}
+          options={{
+            headerShown:false,
+            tabBarVisible: false,
+            tabBarLabel: 'Login',
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="login" size={24} color= {color} />
+            ),
+            
 
             headerLeft: () => {
               return (

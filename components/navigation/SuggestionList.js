@@ -16,7 +16,6 @@ function SuggestionList({ suggestions }) {
 }
 
 function ItemInSuggests({item}) {
-    // console.log('Item: ',item.word)
     return (
         <Text>{item.word}</Text>
     )
