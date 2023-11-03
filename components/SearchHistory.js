@@ -1,26 +1,41 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import Word from './Word';
+import Title from './ui/Title';
+
+const words = [
+  { id: 1, word: 'Hello' },
+  { id: 2, word: 'Syn' },
+  { id: 3, word: 'Heroine' },
+];
+
+function renderWordCard(itemData) {
+  return (
+    <View style={styles.wordCard}>
+      <Title size={25}>{itemData.item.word}</Title>
+    </View>
+  );
+}
 
 function SearchHistory() {
   return (
-    <FlatList>
-      <Word />
-    </FlatList>
+    <FlatList
+      style={styles.container}
+      data={words}
+      keyExtractor={(item) => item.id}
+      renderItem={renderWordCard}
+    ></FlatList>
   );
 }
 
 export default SearchHistory;
 
 const styles = StyleSheet.create({
-  volumeContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
+  container: {
+    margin: 20,
   },
 
-  volumeText: {
-    fontWeight: 'bold',
+  wordCard: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#BBB',
+    paddingBottom: 20,
   },
 });

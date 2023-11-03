@@ -14,7 +14,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import DefinitionScreen from './screens/DefinitionScreen';
-import SearchPanel from './components/SearchPanel';
 import HomeScreen from './screens/HomeScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
 import SearchComponent from './components/navigation/SearchComponent';

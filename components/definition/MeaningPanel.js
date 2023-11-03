@@ -7,8 +7,7 @@ const definitions = [
   { id: 2, definition: 'Meaning 2' },
   {
     id: 3,
-    definition:
-      'Meaningfdgggg 3',
+    definition: 'Meaningfdgggg 3',
   },
 ];
 
@@ -16,9 +15,13 @@ function MeaningPanel() {
   return (
     // <ScrollView>
     <View style={styles.definitionContainer}>
-      <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
+      <BorderTitle style={styles.partofSpeechTitle} size={20}>
+        Danh từ
+      </BorderTitle>
       <DefinitionBody data={definitions} />
-      <BorderTitle style={styles.partofSpeechTitle}>Danh từ</BorderTitle>
+      <BorderTitle style={styles.partofSpeechTitle} size={20}>
+        Danh từ
+      </BorderTitle>
       <DefinitionBody data={definitions} />
     </View>
     // </ScrollView>

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-function BorderTitle({ children }) {
+function BorderTitle({ children, size }) {
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>{children}</Text>
+      <Text style={[styles.title, { fontSize: size }]}>{children}</Text>
     </View>
   );
 }
