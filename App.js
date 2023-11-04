@@ -14,22 +14,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import DefinitionScreen from './screens/DefinitionScreen';
+import SearchPanel from './components/SearchPanel';
 import HomeScreen from './screens/HomeScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
 import SearchComponent from './components/navigation/SearchComponent';
 import RightBarHeader from './components/navigation/RightBarHeader';
 import LeftBarHeader from './components/navigation/LeftBarHeader';
+import { Entypo } from '@expo/vector-icons';
+import LoginScreen from './screens/LoginScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import SignUpScreen from './screens/SignUpScreen';
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
   return (
-    // <SafeAreaView style={styles.baseContainer}>
-    //   <SearchPanel />
-    //   <DefinitionScreen />
-    // </SafeAreaView>
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName='Home'
@@ -43,7 +45,7 @@ export default function App() {
           options={{
             // headerShown: false,
             tabBarVisible: false,
-            tabBarLabel: 'a',
+            tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name='home' color={color} size={size} />
             ),
@@ -89,6 +91,29 @@ export default function App() {
             },
           }}
         />
+        <Tab.Screen
+          name='Login'
+          component={LoginStack}
+          options={{
+            headerShown: false,
+            tabBarVisible: false,
+            tabBarLabel: 'Login',
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name='login' size={24} color={color} />
+            ),
+
+            headerLeft: () => {
+              return (
+                <Ionicons
+                  name='arrow-back-sharp'
+                  size={24}
+                  color='#2499FF'
+                  style={{ marginLeft: 10 }}
+                />
+              );
+            },
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -101,3 +126,22 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
+function LoginStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBarOptions={{}}
+    >
+      <Stack.Screen
+        name='login'
+        component={LoginScreen}
+        options={{
+          tabBarVisible: false,
+        }}
+      />
+      <Stack.Screen name='signup' component={SignUpScreen} />
+    </Stack.Navigator>
+  );
+}
