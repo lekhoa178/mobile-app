@@ -7,7 +7,7 @@ import WordPanel from '../components/definition/WordPanel';
 
 function HomeScreen() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {/* <SearchPanel />
         <WordPanel />
         <SearchHistory />
@@ -21,5 +21,8 @@ function HomeScreen() {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  titleContainer: {},
+  container: {
+    flex: 1,
+    padding: 20,
+  },
 });

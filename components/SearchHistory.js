@@ -1,16 +1,19 @@
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 import Title from './ui/Title';
 
 const words = [
-  { id: 1, word: 'Hello' },
-  { id: 2, word: 'Syn' },
-  { id: 3, word: 'Heroine' },
+  { id: 1, word: 'Hello', def: 'hello every body' },
+  { id: 2, word: 'Syn', def: 'synchornization' },
+  { id: 3, word: 'Heroine', def: 'negative drug' },
 ];
 
 function renderWordCard(itemData) {
   return (
     <View style={styles.wordCard}>
-      <Title size={25}>{itemData.item.word}</Title>
+      <Pressable style={styles.innerCard} android_ripple={{ color: '#444' }}>
+        <Title size={25}>{itemData.item.word}</Title>
+        <Text>{itemData.item.def}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -30,12 +33,17 @@ export default SearchHistory;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    marginTop: 20,
   },
 
   wordCard: {
+    flex: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#BBB',
     paddingBottom: 20,
+  },
+
+  innerCard: {
+    flex: 1,
   },
 });
