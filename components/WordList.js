@@ -10,15 +10,13 @@ const words = [
 function renderWordCard(itemData) {
   return (
     <View style={styles.wordCard}>
-      <Pressable style={styles.innerCard} android_ripple={{ color: '#444' }}>
-        <Title size={25}>{itemData.item.word}</Title>
-        <Text>{itemData.item.def}</Text>
-      </Pressable>
+      <Title size={25}>{itemData.item.word}</Title>
+      <Text>{itemData.item.def}</Text>
     </View>
   );
 }
 
-function SearchHistory() {
+function WordList() {
   return (
     <FlatList
       style={styles.container}
@@ -29,7 +27,7 @@ function SearchHistory() {
   );
 }
 
-export default SearchHistory;
+export default WordList;
 
 const styles = StyleSheet.create({
   container: {

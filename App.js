@@ -35,7 +35,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName='Home'
-        tabBarOptions={{
+        screenOptions={{
           activeTintColor: '#e91e63',
         }}
       >

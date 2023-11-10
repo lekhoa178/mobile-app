@@ -9,60 +9,54 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import SuggestionList from './SuggestionList';
-// import styled from 'styled-components/native';
 import styled from 'styled-components';
-// Tạo một styled component cho SuggestionList
+import { searchWord } from '../../service/ApiService';
+// import styled from 'styled-components/native';
+
 const SuggestionListView = styled.View`
   position: absolute;
-  top: 45px; 
-  left: 10px;
-  right: 10px;
+  top: 50px;
+  width: 100%;
   background-color: #fff;
-  border: 1px solid #ccc;
-  z-index: 1; 
+  border-radius: 0 0 15px 15px;
+  padding-top: 15px;
+  z-index: 0;
 `;
 function SearchComponent() {
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const handleChangeInput = (text) => {
+  const handleChangeInput = async function (text) {
     setInput(text);
-    if(text!= ''){
-      setSuggestions([
-          { id: 1, word: 'word1' },
-          { id: 2, word: 'word2' },
-          { id: 3, word: 'word3' },
-      ]);
-    }
-    else {
+    if (text != '') {
+      const words = await searchWord(text);
+      setSuggestions(words);
+    } else {
       setSuggestions([]);
     }
-  }
+  };
 
   return (
     <View>
       <TextInput
-      onChangeText={handleChangeInput}
-      placeholder='Nhập từ vựng để tra'
-      value={input}
-      style={{
-        borderBottomWidth: 1,
-        borderBottomColor: 'blue',
-        backgroundColor: 'transparent',
-        width: Dimensions.get('window').width * 0.75,
-        borderRadius: 10,
-        padding: 10,
-        borderColor: '#7599FF',
-      }}
-    ></TextInput>
+        onChangeText={handleChangeInput}
+        placeholder='Nhập từ vựng để tra'
+        value={input}
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: 'blue',
+          backgroundColor: 'transparent',
+          width: Dimensions.get('window').width * 0.75,
+          borderRadius: 10,
+          padding: 10,
+          borderColor: '#7599FF',
+        }}
+      ></TextInput>
       {suggestions.length > 0 && (
-        <SuggestionListView>
+        <SuggestionListView style={{ elevation: 5 }}>
           <SuggestionList suggestions={suggestions} />
-        </SuggestionListView> 
-           
-        
+        </SuggestionListView>
       )}
     </View>
-    
   );
 }
 
