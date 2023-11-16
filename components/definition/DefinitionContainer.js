@@ -11,7 +11,7 @@ const definitions = [
   },
 ];
 
-function MeaningPanel() {
+function DefinitionContainer() {
   return (
     // <ScrollView>
     <View style={styles.definitionContainer}>
@@ -28,7 +28,7 @@ function MeaningPanel() {
   );
 }
 
-export default MeaningPanel;
+export default DefinitionContainer;
 
 const styles = StyleSheet.create({
   definitionContainer: {

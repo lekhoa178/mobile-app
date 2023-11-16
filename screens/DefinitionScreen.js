@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 import WordPanel from '../components/definition/WordPanel';
-import MeaningPanel from '../components/definition/MeaningPanel';
+import DefinitionContainer from '../components/definition/DefinitionContainer';
 import { useEffect, useState } from 'react';
 import { getAllSynset } from '../service/ApiService';
 
@@ -28,7 +28,7 @@ function DefinitionScreen() {
   return (
     <View style={styles.container}>
       <WordPanel word='hello' />
-      <MeaningPanel />
+      <DefinitionContainer />
     </View>
   );
 }

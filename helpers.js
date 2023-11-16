@@ -11,12 +11,13 @@ const timeout = function (s) {
 
 export const AJAX = async function (url, uploadData = undefined) {
   try {
-    const credentials = Buffer.from('leanhkhoa:123456').toString('base64');
-    var auth = { Authorization: `Basic ${credentials}` };
+    const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZWFuaGtob2EiLCJpYXQiOjE3MDAxMTU0ODgsImV4cCI6MTcwMDIwMTg4OH0.6WEJ4wJVzfnnhMrWKy_zMXlZqaIocvHlWU_L8IV0Suc";
 
     const fetchPro = fetch(url, {
       method: 'GET',
-      headers: auth,
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
     });
 
     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
