@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
+import {navigate} from "../../RootNavigation";
 
 function LeftBarHeader() {
   return (

@@ -27,7 +27,7 @@ function SearchComponent() {
   const [suggestions, setSuggestions] = useState([]);
   const handleChangeInput = async function (text) {
     setInput(text);
-    if (text != '') {
+    if (text !== '') {
       const words = await searchWord(text);
       setSuggestions(words);
     } else {

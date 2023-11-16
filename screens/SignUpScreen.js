@@ -16,7 +16,8 @@ const SignUpScreen = ({ navigation }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleGoback = () => {
-    navigation.goBack();
+    // navigation.goBack();
+    navigation.navigate("Definitions");
   };
 
   const handleSignUp = () => {};

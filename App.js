@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,createNavigationContainerRef } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import DefinitionScreen from './screens/DefinitionScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -19,18 +19,21 @@ import SearchComponent from './components/navigation/SearchComponent';
 import RightBarHeader from './components/navigation/RightBarHeader';
 import LeftBarHeader from './components/navigation/LeftBarHeader';
 import { Entypo } from '@expo/vector-icons';
-import LoginScreen from './screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignUpScreen from './screens/SignUpScreen';
+import LessonScreen from "./screens/LessonScreen";
+import LoginStack from "./components/stack/LoginStack";
+import LessonStack from "./components/stack/LessonStack";
+import HomeStack from "./components/stack/HomeStack";
+import {rootNavigation} from "./RootNavigation";
+import NotebookScreen from "./screens/NotebookScreen";
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={rootNavigation}>
       <Tab.Navigator
         initialRouteName='Home'
         screenOptions={{
@@ -39,15 +42,15 @@ export default function App() {
       >
         <Tab.Screen
           name='Home'
-          component={HomeScreen}
+          component={HomeStack}
           options={{
             // headerShown: false,
             tabBarVisible: false,
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Trang chủ',
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name='home' color={color} size={size} />
             ),
-            headerTitle: () => {
+            headerTitle: ({ navigation }) => {
               return <SearchComponent />;
             },
 
@@ -61,11 +64,11 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name='Definitions'
-          component={DefinitionScreen}
+          name='Notebook'
+          component={NotebookScreen}
           options={{
             tabBarVisible: false,
-            tabBarLabel: 'Details',
+            tabBarLabel: 'Số tay',
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name='star' color={color} size={size} />
             ),
@@ -89,6 +92,35 @@ export default function App() {
             },
           }}
         />
+          <Tab.Screen
+              name='Lesson'
+              component={LessonStack}
+              options={{
+                  tabBarVisible: false,
+                  tabBarLabel: 'Lesson',
+                  tabBarIcon: ({ color, size }) => (
+                      <FontAwesome name='star' color={color} size={size} />
+                  ),
+                  headerTitle: () => {
+                      return <SearchComponent />;
+                  },
+
+                  headerRight: () => {
+                      return <RightBarHeader />;
+                  },
+
+                  headerLeft: () => {
+                      return (
+                          <Ionicons
+                              name='arrow-back-sharp'
+                              size={24}
+                              color='#2499FF'
+                              style={{ marginLeft: 10 }}
+                          />
+                      );
+                  },
+              }}
+          />
         <Tab.Screen
           name='Login'
           component={LoginStack}
@@ -124,22 +156,4 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
-function LoginStack() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      tabBarOptions={{}}
-    >
-      <Stack.Screen
-        name='login'
-        component={LoginScreen}
-        options={{
-          tabBarVisible: false,
-        }}
-      />
-      <Stack.Screen name='signup' component={SignUpScreen} />
-    </Stack.Navigator>
-  );
-}
+

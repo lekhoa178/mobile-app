@@ -7,18 +7,21 @@ import {
   Switch,
   Pressable
 } from "react-native";
-import { Navigation } from "react-native-navigation";
+import {authenticate} from "../service/ApiService";
+
 const marginLeft = 20;
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Implement your authentication logic here
     // For simplicity, we'll just log the entered values
     console.log("Username:", username);
     console.log("Password:", password);
+    const result = await authenticate(username,password);
+    console.log(result);
   };
   const handleSignUp = () => {
     navigation.navigate("signup");
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 16
+    padding: 16,
+    backgroundColor: '#fff',
   },
   title: {
     textAlign: "center",

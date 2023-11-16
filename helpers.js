@@ -9,15 +9,18 @@ const timeout = function (s) {
   });
 };
 
-export const AJAX = async function (url, uploadData = undefined) {
+export const AJAX = async function (url, method='GET', uploadData = undefined) {
   try {
     const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZWFuaGtob2EiLCJpYXQiOjE3MDAxMTU0ODgsImV4cCI6MTcwMDIwMTg4OH0.6WEJ4wJVzfnnhMrWKy_zMXlZqaIocvHlWU_L8IV0Suc";
 
     const fetchPro = fetch(url, {
-      method: 'GET',
+      method: method,
       headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify(uploadData)
     });
 
     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);

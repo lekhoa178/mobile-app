@@ -1,17 +1,20 @@
 import React from 'react';
 import { FlatList, Text, StyleSheet, Pressable } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { navigate } from "../../RootNavigation";
 
-function ItemInSuggests({ item }) {
-  function navWordDetail() {}
+function ItemInSuggests(itemData) {
+  function handleNavi() {
+    navigate('Definition');
+  }
 
   return (
     <Pressable
+      onPress={handleNavi}
       style={styles.button}
       android_ripple={{ color: '#ccc' }}
-      onPress={navWordDetail}
     >
-      <Text style={styles.wordItem}>{item.replaceAll('_', ' ')}</Text>
+      <Text style={styles.wordItem}>{itemData.item.replaceAll('_', ' ')}</Text>
     </Pressable>
   );
 }
