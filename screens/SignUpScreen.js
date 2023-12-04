@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Switch,
-  Pressable,
-  Button
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 const marginLeft = 20;
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleGoback = () => {
-    // navigation.goBack();
-    navigation.navigate("Definitions");
+    navigation.goBack();
+    // navigation.navigate("Definitions");
   };
 
   const handleSignUp = () => {};
@@ -26,6 +19,13 @@ const SignUpScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>MONOLINGO</Text>
       <Text style={styles.textWelcome}>Sign up to your account !</Text>
+      <Text style={styles.label}>Email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter email"
+        value={email}
+        onChangeText={text => setEmail(text)}
+      />
       <Text style={styles.label}>Username: </Text>
       <TextInput
         style={styles.input}

@@ -12,6 +12,7 @@ import SuggestionList from "./SuggestionList";
 import styled from "styled-components";
 import { searchWord } from "../../service/ApiService";
 import { useSelector, useDispatch } from "react-redux";
+import { searchByWord } from "../../service/DictionaryService";
 // import { setWords } from "../../context/actions/SearchAction";
 // import styled from 'styled-components/native';
 
@@ -37,8 +38,9 @@ function SearchComponent() {
     };
     dispatch(setWord);
     if (text !== "") {
-      const words = await searchWord(text);
-      setSuggestions(words);
+      // const words = await searchWord(text);
+      // await searchByWord(text);
+      // setSuggestions(words);
     } else {
       setSuggestions([]);
     }
@@ -63,7 +65,8 @@ function SearchComponent() {
       {suggestions.length > 0 &&
         <SuggestionListView style={{ elevation: 5 }}>
           <SuggestionList suggestions={suggestions} />
-        </SuggestionListView>}
+        </SuggestionListView>
+        }
     </View>
   );
 }

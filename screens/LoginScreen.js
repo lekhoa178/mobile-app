@@ -7,8 +7,12 @@ import {
   Switch,
   Pressable
 } from "react-native";
-import {authenticate} from "../service/ApiService";
-
+import { authenticate } from "../service/ApiService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { login } from "../service/LoginService";
+// import Constants from "expo-constants";
+// import { Network } from "expo-network";
+// const host = Constants.manifest.hostUri | null;
 const marginLeft = 20;
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -16,12 +20,9 @@ const LoginScreen = ({ navigation }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
-    // Implement your authentication logic here
-    // For simplicity, we'll just log the entered values
-    console.log("Username:", username);
-    console.log("Password:", password);
-    const result = await authenticate(username,password);
-    console.log(result);
+    // console.log(host);
+    // await getIpAddress();
+    await login(username, password);
   };
   const handleSignUp = () => {
     navigation.navigate("signup");
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   title: {
     textAlign: "center",

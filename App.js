@@ -31,7 +31,9 @@ import { rootNavigation } from "./RootNavigation";
 import NotebookScreen from "./screens/NotebookScreen";
 import { Provider } from "react-redux";
 import store from "./context/store";
+
 const Tab = createBottomTabNavigator();
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
