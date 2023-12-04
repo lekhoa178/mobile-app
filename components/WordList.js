@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
 import Title from "./ui/Title";
 import WordCard from "./WordCard";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { searchByWord } from "../service/DictionaryService";
 import {useEffect, useState} from "react";
 import {searchWord} from "../service/ApiService";
@@ -14,9 +14,9 @@ const words = [
 ];
 
 function WordList() {
+  const dispatch = useDispatch();
   const [resultState,setResultState] = useState(words);
   const wordSearch = useSelector(state => state.search.words);
-  // const wordResult = useSelector(state => { return state.search.wordResult }) | words;
   useEffect(() => {
     if (wordSearch.length === 0){ setResultState([]); return; }
     const fetchData = async () => {
@@ -32,7 +32,7 @@ function WordList() {
       style={styles.container}
       data={resultState}
       keyExtractor={item => item.id}
-      renderItem={WordCard}
+      renderItem={itemData => WordCard(itemData,dispatch)}
     />
   );
 }

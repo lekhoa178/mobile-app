@@ -1,4 +1,4 @@
-import DefinitionScreen from "../../screens/DefinitionScreen";
+ import DefinitionScreen from "../../screens/DefinitionScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();

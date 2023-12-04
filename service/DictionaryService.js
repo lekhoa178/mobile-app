@@ -1,5 +1,6 @@
 import { searchWord } from "./ApiService";
 import { Synset } from "../models/synset";
+import {getDefinition} from "./ApiService";
 
 export const searchByWord = async function(word) {
   let result = [];
@@ -12,3 +13,6 @@ export const searchByWord = async function(word) {
   }
   return result;
 };
+export const getDefinitionModel = async function(word){
+  return await getDefinition(word);
+}

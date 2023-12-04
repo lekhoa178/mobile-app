@@ -1,6 +1,7 @@
 const initialState = {
   words: "",
-  wordResult:[]
+  wordResult:[],
+  wordDetail:""
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         wordResult: action.payload
+      }
+    case "SET_WORD_DETAILS":
+      return {
+        ...state,
+        wordDetail: action.payload
       }
     default:
       return state;
