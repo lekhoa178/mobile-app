@@ -31,7 +31,11 @@ export const getStages = async function(accountId) {
   return AJAX(API_URL + `/stage/all/${accountId}`);
 }
 
-    export const authenticate = async function(username, password) {
+export const getSentences = async function(stageId, levelId, amount) {
+  return AJAX(API_URL + `/cfg/sentences/${stageId}/${levelId}/${amount}`);
+}
+
+export const authenticate = async function(username, password) {
   return await AJAX_REQUEST(API_URL + `/api/auth/authenticate`, "POST", {
     username,
     password

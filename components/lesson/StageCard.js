@@ -13,17 +13,16 @@ const stageColors = [
     "#cc348d"
 ];
 
-function StageCard(itemData) {
-    console.log(itemData.item);
+function StageCard(stageId, dispatch) {
     return (
         <View style={styles.stageContainer}>
-            <View style={[styles.stageCard, {backgroundColor: stageColors[itemData.index % stageColors.length]}]}>
-                <Title oStyle={{fontSize: 20}}>{itemData.item.title}</Title>
-                <Text>{itemData.item.depiction}</Text>
+            <View style={[styles.stageCard, {backgroundColor: stageColors[stageId.index % stageColors.length]}]}>
+                <Title oStyle={{fontSize: 20}}>{stageId.item.title}</Title>
+                <Text>{stageId.item.depiction}</Text>
             </View>
             <FlatList style={styles.levelContainer}
-                      data={itemData.item.levels}
-                      renderItem={itemData => LevelCard(itemData)}
+                      data={stageId.item.levels}
+                      renderItem={itemData => LevelCard(itemData, stageId.item.stageId, dispatch)}
                       keyExtractor={e => e.levelId}/>
         </View>);
 }

@@ -31,18 +31,9 @@ function SearchComponent() {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const [suggestions, setSuggestions] = useState([]);
-  const handleChangeInput = async function(text) {
+  const handleChangeInput = function(text) {
     setInput(text);
-
     dispatch(setWords(text));
-
-    if (text !== "") {
-      // const words = await searchWord(text);
-      // await searchByWord(text);
-      // setSuggestions(words);
-    } else {
-      setSuggestions([]);
-    }
   };
 
   return (

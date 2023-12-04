@@ -3,6 +3,7 @@ import Title from "../components/ui/Title";
 import StageCard from "../components/lesson/StageCard";
 import {useEffect, useState} from "react";
 import {getStages} from "../service/ApiService";
+import {useDispatch} from "react-redux";
 
 // const stages = [
 //     {
@@ -45,13 +46,14 @@ import {getStages} from "../service/ApiService";
 
 function LessonScreen() {
     const [stages, setStages] = useState([]);
-
-    const fetchData = async () => {
-        const result = await getStages(19);
-        setStages(result);
-    };
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        const fetchData = async () => {
+            const result = await getStages(19);
+            setStages(result);
+        };
+
         fetchData();
     }, []);
 
@@ -59,7 +61,7 @@ function LessonScreen() {
         <View style={styles.container}>
             <FlatList data={stages}
                       keyExtractor={(item, index) => item.stageId}
-                      renderItem={itemData => StageCard(itemData)}/>
+                      renderItem={itemData => StageCard(itemData, dispatch)}/>
         </View>);
 }
 

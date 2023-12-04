@@ -3,13 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {navigate} from "../../RootNavigation";
 import {setId} from "../../context/actions/LessonAction";
 
-function LevelCard(itemData, stageId) {
-
-  // const dispatch = useDispatch();
+function LevelCard(itemData, stageId, dispatch) {
 
   function handleNavigation(stageId, levelId) {
-    // dispatch(setId({stageId, levelId}));
-    navigate('finish-game');
+    dispatch(setId({stageId, levelId}));
+    navigate('game');
+
   }
 
   let levelStyle = !itemData.item.complete ? { backgroundColor: "#ccc" } : {};

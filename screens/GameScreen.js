@@ -1,55 +1,60 @@
 import {Button, Pressable, StyleSheet, Text, Touchable, View} from "react-native";
 import Title from "../components/ui/Title";
 import Volume from "../components/ui/Volume";
-import React from "react";
-import {useDispatch} from "react-redux";
-import {getId} from "../context/actions/LessonAction";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getQAs} from "../service/LessonService";
+import AnswerContainer from "../components/game/AnswerContainer";
+import OptionContainer from "../components/game/OptionContainer";
+
+let questionsType = [];
+let correctAns = 0;
+
+const totalQuestions = 13;
+
 
 function GameScreen() {
-    // const dispatch = useDispatch();
-    // const {stageId, levelId} = dispatch(getId());
-    // console.log(stageId, levelId);
+    const { stageId, levelId } = useSelector(state => state.lesson.id);
+    const [curQuestion, setCurQuestion] = useState(0);
+    const [sentences, setSentences] = useState([]);
 
-    const sentence = "hello world!";
+    useEffect(() => {
+        const setupRound = async() => {
+            setSentences(await getQAs(stageId, levelId, totalQuestions));
+            for (let i = 0; i < totalQuestions; ++i) {
+                questionsType.push(Math.floor(Math.random() * (3)));
+            }
+
+        }
+
+        setupRound();
+    }, [stageId, levelId]);
+
+    const nextQuestion = function() {
+        setCurQuestion(curQuestion + 1);
+    }
+
+    if (sentences.length === 0)
+        return <View></View>;
 
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <Title oStyle={{fontSize: 25, padding: 0}}>Translate to Vietnamese</Title>
                 <View style={styles.sentenceContainer}>
-                    <Volume word={sentence}/>
-                    <Text style={{margin: 10, fontSize: 17}}>{sentence}</Text>
+                    <Volume word={sentences[curQuestion].english}/>
+                    <Text style={{margin: 10, fontSize: 17}}>{sentences[curQuestion].english}</Text>
                 </View>
             </View>
 
-            <View style={styles.answerContainer}>
-                <View style={styles.lines}>
+            <AnswerContainer></AnswerContainer>
 
-                </View>
-
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-            </View>
-
-            <View style={styles.optionContainer}>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-                <Text style={styles.optionCard}>hdsa</Text>
-            </View>
+            <OptionContainer></OptionContainer>
 
             <View style={styles.confirmContainer}>
                 <Pressable
                     style={styles.buttonConfirm}
+                    onPress={nextQuestion}
                 >
                     <Text style={styles.textConfirm}>CONFIRM</Text>
                 </Pressable>
@@ -82,14 +87,6 @@ const styles = StyleSheet.create({
         zIndex: 5,
     },
 
-    answerContainer: {
-        flex: 1,
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        marginHorizontal: 30,
-        paddingBottom: 40,
-    },
-
     optionCard: {
         borderRadius: 15,
         borderColor: '#CCC',
@@ -99,13 +96,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginHorizontal: 3,
         borderBottomWidth: 4,
-    },
-
-    optionContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginHorizontal: 30
     },
 
     confirmContainer: {
@@ -138,13 +128,4 @@ const styles = StyleSheet.create({
         color: "white" // Change the text color
     },
 
-    lines: {
-        position: 'absolute',
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
-        width: '100%',
-        height: 60,
-        top: 50,
-        borderColor: '#BBB'
-    }
 })
