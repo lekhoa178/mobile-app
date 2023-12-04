@@ -7,3 +7,9 @@ export const setWords = payload => ({
 export const getWords = () => ({
   type: "GET_WORDS"
 });
+export const setSearchWords = payload => {
+  return {
+    type: "SET_SEARCH_WORDS",
+    payload: payload
+  }
+}

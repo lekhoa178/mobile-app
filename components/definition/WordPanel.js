@@ -15,7 +15,7 @@ function WordPanel() {
 
   return (
     <View style={styles.container}>
-      <Title size={35}>{word}</Title>
+      <Title oStyle={{fontSize: 35}}>{word}</Title>
       <View style={styles.utilityContainer}>
         <Volume style={styles.volume} word={word} />
         <Pressable onPress={favor}>

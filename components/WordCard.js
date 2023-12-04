@@ -6,16 +6,15 @@ function WordCard(itemData) {
     if (text.length > maxLength) {
       return text.substr(0, maxLength) + "...";
     }
-
     return text;
   }
   return (
     <View style={styles.wordCard}>
-      <Title size={25}>
+      <Title oStyle={{ fontSize: 20 }}>
         {itemData.item.word}
       </Title>
       <Text>
-        {truncateText(itemData.item.def)}
+        {truncateText(itemData.item.def,20)}
       </Text>
     </View>
   );

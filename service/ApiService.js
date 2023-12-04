@@ -6,7 +6,7 @@ export const getAllSynset = async function() {
 };
 
 export const searchWord = async function(word) {
-  return AJAX(API_URL + `/dictionary/search/${word}/6`);
+  return AJAX(API_URL + `/dictionary/search/${word}/10`);
 };
 
 export const getDefinition = async function(word) {
@@ -23,21 +23,24 @@ export const deleteNotebook = async function(accountId, synsetId, lexiconNum) {
   );
 };
 
-export const addNotebook = async function(accountId, synsetId, lexiconNum) {
-  return;
+export const addNotebook = async function(notebook) {
+  return AJAX (API_URL + `dictionary/notebook`,"POST",notebook);
 };
 
-export const authenticate = async function(username, password) {
+export const getStages = async function(accountId) {
+  return AJAX(API_URL + `/stage/all/${accountId}`);
+}
+
+    export const authenticate = async function(username, password) {
   return await AJAX_REQUEST(API_URL + `/api/auth/authenticate`, "POST", {
     username,
     password
   });
 };
 export const register = async function(username, password) {
-  const result = AJAX_REQUEST(API_URL + `/api/auth/register`, "POST", {
+  return await AJAX_REQUEST(API_URL + `/api/auth/register`, "POST", {
     email,
     username,
     password
   });
-  console.log(result);
 };

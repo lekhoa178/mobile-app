@@ -4,7 +4,7 @@ import Heart from "../ui/Heart";
 function NotebookWord(itemData) {
     return (
         <View style={styles.wordCard}>
-            <Title size={25}>{itemData.item.word}</Title>
+            <Title oStyle={{fontSize: 25}}>{itemData.item.word}</Title>
             <View style={styles.textCard}>
                 <Text>{itemData.item.def}</Text>
                 <Heart />

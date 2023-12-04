@@ -2,6 +2,7 @@ import GameScreen from "../../screens/GameScreen";
 import LessonScreen from "../../screens/LessonScreen";
 import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
+import FinishGame from "../../screens/FinishScreen";
 const Stack = createStackNavigator();
 
 function LessonStack() {
@@ -20,6 +21,7 @@ function LessonStack() {
                 }}
             />
             <Stack.Screen name='game' component={GameScreen} />
+            <Stack.Screen name = 'finish-game' component={FinishGame}/>
         </Stack.Navigator>
     );
 }

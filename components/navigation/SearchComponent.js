@@ -10,8 +10,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import SuggestionList from "./SuggestionList";
 import styled from "styled-components";
-import { searchWord } from "../../service/ApiService";
 import { useSelector, useDispatch } from "react-redux";
+import {setSearchWords, setWords} from "../../context/actions/SearchAction";
 import { searchByWord } from "../../service/DictionaryService";
 // import { setWords } from "../../context/actions/SearchAction";
 // import styled from 'styled-components/native';
@@ -27,16 +27,15 @@ const SuggestionListView = styled.View`
 `;
 function SearchComponent() {
   const word = useSelector(state => state.search.word);
+  const wordList = useSelector(state => state.search.wordResult);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const [suggestions, setSuggestions] = useState([]);
   const handleChangeInput = async function(text) {
     setInput(text);
-    const setWord = {
-      type: "SET_WORDS",
-      payload: text
-    };
-    dispatch(setWord);
+
+    dispatch(setWords(text));
+
     if (text !== "") {
       // const words = await searchWord(text);
       // await searchByWord(text);
