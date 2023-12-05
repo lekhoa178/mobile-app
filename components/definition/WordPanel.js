@@ -4,10 +4,8 @@ import { useState } from 'react';
 import Volume from '../ui/Volume';
 import Title from '../ui/Title';
 
-const word = 'Myth';
-
-function WordPanel() {
-  const [favorite, setFavourite] = useState(false);
+function WordPanel({word}) {
+  const [favorite, setFavourite] = useState(false)
 
   function favor() {
     setFavourite(!favorite);

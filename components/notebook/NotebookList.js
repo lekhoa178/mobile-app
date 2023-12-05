@@ -7,7 +7,8 @@ const words = [
     { id: 3, word: 'Heroine', def: 'negative drug' },
 ];
 
-function NotebookList() {
+function NotebookList({notebookList}) {
+    console.log("Notebook list : ",notebookList)
     return (
         <FlatList
             style={styles.container}

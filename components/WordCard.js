@@ -12,7 +12,7 @@ function WordCard(itemData,dispatch) {
   }
   function setWordDetails(text){
       console.log(text);
-      dispatch(setWordDetail({text}));
+      dispatch(setWordDetail(text));
       navigate("Definition");
   }
   return (

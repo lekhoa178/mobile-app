@@ -20,8 +20,6 @@ const LoginScreen = ({ navigation }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
-    // console.log(host);
-    // await getIpAddress();
     await login(username, password);
   };
   const handleSignUp = () => {

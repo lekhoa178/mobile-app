@@ -48,3 +48,6 @@ export const register = async function(username, password) {
     password
   });
 };
+export const getAccountByUsername = async function(username) {
+  return await AJAX(API_URL + `/dictionary/account/${username}`);
+}

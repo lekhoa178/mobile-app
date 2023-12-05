@@ -15,3 +15,13 @@ export const setId = payload => ({
 export const getId = () => ({
     type: "GET_ID"
 });
+
+export const setAnswerSentence = payload => ({
+    type: "SET_ANS_SEN",
+    payload
+})
+
+export const setOptionSentence = payload => ({
+    type: "SET_OPT_SEN",
+    payload
+})

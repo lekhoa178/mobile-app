@@ -1,22 +1,21 @@
-import {StyleSheet, Text, View} from "react-native";
-import React from "react";
+import {FlatList, StyleSheet, Text, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import OptionCard from "./OptionCard";
 
-const AnswerContainer = () => {
+const AnswerContainer = ({selectHandle}) => {
+
+    const ansWords = useSelector(state => state.lesson.answerSentence);
+    console.log("ANS", ansWords)
+
     return (
         <View style={styles.answerContainer}>
-            <View style={styles.lines}>
+            <View style={styles.lines}/>
 
-            </View>
-
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
-            <Text style={styles.optionCard}>hdsa</Text>
+            <FlatList contentContainerStyle={{flexDirection : "row", flexWrap : "wrap"}}
+                data={ansWords}
+                renderItem={itemData => OptionCard(itemData.item, selectHandle, itemData.index, true)}
+                keyExtractor={(item, index) => index.toString()}/>
         </View>);
 }
 
@@ -29,17 +28,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 30,
         paddingBottom: 40,
-    },
-
-    optionCard: {
-        borderRadius: 15,
-        borderColor: '#CCC',
-        borderWidth: 1,
-        padding: 10,
-        fontSize: 17,
-        marginBottom: 10,
-        marginHorizontal: 3,
-        borderBottomWidth: 4,
     },
 
     lines: {

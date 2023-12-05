@@ -11,20 +11,19 @@ const definitions = [
   },
 ];
 
-function DefinitionContainer() {
+function DefinitionContainer({wordsDefinition}) {
+    console.log("Words definition: ",wordsDefinition);
   return (
-    // <ScrollView>
-    <View style={styles.definitionContainer}>
-      <BorderTitle style={styles.partofSpeechTitle} size={20}>
-        Danh từ
-      </BorderTitle>
-      <DefinitionBody data={definitions} />
-      <BorderTitle style={styles.partofSpeechTitle} size={20}>
-        Danh từ
-      </BorderTitle>
-      <DefinitionBody data={definitions} />
-    </View>
-    // </ScrollView>
+
+    <ScrollView contentContainerStyle={styles.definitionContainer}>
+        {Object.keys(wordsDefinition).map( key => (
+          <View style = {styles.partofSpeechTitle} size={20}>
+            <Text style={styles.textKey}>{key}</Text>
+            <DefinitionBody wordsDefinition={wordsDefinition[key]}/>
+          </View>
+        ))}
+    </ScrollView>
+
   );
 }
 
@@ -34,6 +33,11 @@ const styles = StyleSheet.create({
   definitionContainer: {
     flex: 1,
     flexDirection: 'column',
-    gap: 20,
+    gap: 10,
+    alignItems:"center"
   },
+  textKey: {
+    fontSize:25,
+    fontWeight:"bold"
+  }
 });

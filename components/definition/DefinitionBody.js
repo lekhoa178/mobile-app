@@ -3,23 +3,28 @@ import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 function renderDefItem(itemData) {
   return (
     <View style={styles.definitionItem}>
-      <Pressable android_ripple={{ color: '#BBB' }} style={styles.button}>
+        <Text style = {styles.definition}>{itemData.item.definition}</Text>
         <View style={styles.innerContainerItem}>
-          <Text style={styles.definitionText}>{itemData.item.definition}</Text>
+          {itemData.item.examples.map((example , index) => {
+                  return <Text key ={index} style={styles.definitionText}>{example}</Text>;
+          })}
         </View>
-      </Pressable>
+        <View style={styles.innerContainerItem}>
+          {itemData.item.synonyms.map((synonym,index) => (
+              <Text key={index} style={styles.definitionText}>{synonym}</Text>
+          ))}
+        </View>
     </View>
   );
 }
 
-function DefinitionBody({ data }) {
+function DefinitionBody({ wordsDefinition }) {
   return (
-    <FlatList
-      style={styles.container}
-      data={data}
-      keyExtractor={(item) => item.id}
-      renderItem={renderDefItem}
-    ></FlatList>
+        <FlatList
+          data={wordsDefinition}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={renderDefItem}
+        ></FlatList>
   );
 }
 
@@ -30,9 +35,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  definition: {
+    paddingVertical:15,
+    backgroundColor:"#dcdcdc",
+    fontSize:20,
+    fontWeight:"bold"
+  },
 
   definitionItem: {
-    borderBottomWidth: 0.5,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -40,11 +50,12 @@ const styles = StyleSheet.create({
   definitionText: {
     fontSize: 17,
     fontWeight: '300',
+    paddingVertical:10,
+    borderBottomWidth:0.5,
   },
 
   innerContainerItem: {
-    flex: 1,
-    padding: 20,
+
   },
 
   button: {

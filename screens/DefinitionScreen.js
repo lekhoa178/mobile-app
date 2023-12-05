@@ -3,19 +3,26 @@ import WordPanel from '../components/definition/WordPanel';
 import DefinitionContainer from '../components/definition/DefinitionContainer';
 import { useEffect, useState } from 'react';
 import { getAllSynset } from '../service/ApiService';
+import {getDefinitionModel} from "../service/DictionaryService";
 import {useSelector} from "react-redux";
 
 function DefinitionScreen() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
-  const [response, setResponse] = useState();
   const wordDetail = useSelector(state => state.search.wordDetail);
+  const [wordsDefinition,setWordsDefinition] = useState([]);
   console.log("Word detail: ",wordDetail);
+  useEffect(()=> {
+    const fetchData = async () => {
+      const result = await getDefinitionModel(wordDetail);
+      setWordsDefinition(result);
+      console.log("Result Definition: ",result);
+    };
+    fetchData()
+  },[]);
 
   return (
     <View style={styles.container}>
-      <WordPanel word='hello' />
-      <DefinitionContainer />
+      <WordPanel word={wordDetail} />
+      <DefinitionContainer wordsDefinition = {wordsDefinition} />
     </View>
   );
 }

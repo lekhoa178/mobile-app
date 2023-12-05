@@ -1,7 +1,27 @@
 import { TIMEOUT_SEC } from "./config.js";
-import { Buffer } from "buffer";
-import { getToken } from "./service/LoginService.js";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const getToken = async () => {
+  try {
+    const value = await AsyncStorage.getItem("token");
+
+    if (value !== null) {
+      return value;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getAccountId = async () => {
+  try {
+    const value = await AsyncStorage.getItem("accountId");
+    if (value !== null) {
+      return value;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 const timeout = function(s) {
   return new Promise(function(_, reject) {
     setTimeout(function() {

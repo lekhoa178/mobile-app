@@ -1,15 +1,24 @@
 import { StyleSheet, View } from "react-native";
-import WordList from "../components/WordList";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NotebookList from "../components/notebook/NotebookList";
-import { useSelector } from "react-redux";
+import {getAccountId} from "../helpers";
+import {getAllNotebookFromAccount} from "../service/NotebookService";
+
 
 function NotebookScreen() {
-  let dataWord = useSelector(state => state.search.words);
-  console.log("dataWord", dataWord);
+  const [notebookList,setNotebookList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const accountId = await getAccountId();
+      const result = await getAllNotebookFromAccount(accountId);
+      setNotebookList(result);
+      console.log("Result get all notebook: ",result);
+    };
+    fetchData();
+  }, []);
   return (
     <View style={styles.container}>
-      <NotebookList />
+      <NotebookList notebookList={notebookList}/>
     </View>
   );
 }
