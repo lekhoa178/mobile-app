@@ -1,8 +1,6 @@
 import { authenticate, register, getAccountByUsername } from "./ApiService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {navigate} from "../RootNavigation";
-
-
+import { navigate } from "../RootNavigation";
 
 // Lấy token từ AsyncStorage
 
@@ -26,7 +24,7 @@ const storeToken = async token => {
 };
 const storageAccountId = async accountId => {
   try {
-    console.log("AccountId: ",accountId);
+    console.log("AccountId: ", accountId);
     await AsyncStorage.setItem("accountId", accountId);
     console.log("Luu account id thanh cong");
   } catch (error) {
@@ -57,8 +55,7 @@ export async function registerService(email, username, password) {
 }
 export async function login(username, password) {
   const result = await authenticate(username, password);
-  const account = await getAccountByUsername(username);
-  console.log("Account: ",account);
   await storeToken(result.token);
-  await storageAccountId(account.accountId+"");
+  const account = await getAccountByUsername(username);
+  await storageAccountId(account.accountId + "");
 }
