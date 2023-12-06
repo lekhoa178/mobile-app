@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from "react-native";
+import {FlatList, ScrollView, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import OptionCard from "./OptionCard";
@@ -6,16 +6,18 @@ import OptionCard from "./OptionCard";
 const AnswerContainer = ({selectHandle}) => {
 
     const ansWords = useSelector(state => state.lesson.answerSentence);
-    console.log("ANS", ansWords)
 
     return (
         <View style={styles.answerContainer}>
             <View style={styles.lines}/>
 
-            <FlatList contentContainerStyle={{flexDirection : "row", flexWrap : "wrap"}}
-                data={ansWords}
-                renderItem={itemData => OptionCard(itemData.item, selectHandle, itemData.index, true)}
-                keyExtractor={(item, index) => index.toString()}/>
+            <ScrollView>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                    {ansWords.map((item, index) => (
+                        OptionCard(item, selectHandle, index, true)
+                    ))}
+                </View>
+            </ScrollView>
         </View>);
 }
 

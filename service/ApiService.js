@@ -13,18 +13,19 @@ export const getDefinition = async function(word) {
   return AJAX(API_URL + `/dictionary/definition/${word}`);
 };
 
+export const getLexicon = async function(synsetId, lexiconNum) {
+  return AJAX(API_URL + `/dictionary/lexicon/${synsetId}/${lexiconNum}`);
+}
+
 export const getNotebook = async function(accountId) {
   return AJAX(API_URL + `/dictionary/notebook/${accountId}`);
 };
 
-export const deleteNotebook = async function(accountId, synsetId, lexiconNum) {
-  return AJAX(
-    API_URL + `/dictionary/notebook/${accountId}/${synsetId}/${lexiconNum}`
+export const updateNotebook = async function(word, favorite, accountId) {
+  console.log(word, favorite, accountId);
+  return await AJAX(
+    API_URL + `/dictionary/notebook/update/${word}/${favorite?1:0}/${accountId}`,
   );
-};
-
-export const addNotebook = async function(notebook) {
-  return AJAX (API_URL + `dictionary/notebook`,"POST",notebook);
 };
 
 export const getStages = async function(accountId) {

@@ -8,12 +8,11 @@ const words = [
 ];
 
 function NotebookList({notebookList}) {
-    console.log("Notebook list : ",notebookList)
     return (
         <FlatList
             style={styles.container}
-            data={words}
-            keyExtractor={(item) => item.id}
+            data={notebookList}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={NotebookWord}
         ></FlatList>
     );

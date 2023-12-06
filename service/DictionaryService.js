@@ -1,5 +1,5 @@
 import { searchWord } from "./ApiService";
-import { Synset } from "../models/synset";
+import { Synset } from "../models/Synset";
 import {getDefinition} from "./ApiService";
 
 export const searchByWord = async function(word) {

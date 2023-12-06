@@ -1,12 +1,15 @@
 import {Pressable} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import {useState} from "react";
+import {updateNotebook} from "../../service/ApiService";
+import {getAccountId} from "../../helpers";
 
-function Heart() {
+function Heart({fav, word}) {
 
-    const [favorite, setFavourite] = useState(false);
-    function favor() {
+    const [favorite, setFavourite] = useState(fav);
+    async function favor() {
         setFavourite(!favorite);
+        await updateNotebook(word, favorite, await getAccountId());
     }
 
     return  <Pressable onPress={favor}>

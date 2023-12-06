@@ -9,15 +9,19 @@ import {
   View
 } from "react-native";
 import { navigate } from "../RootNavigation";
+import {useSelector} from "react-redux";
 
 function FinishGame() {
+
+  const correctAns = useSelector(state => state.lesson.correctAns);
+
   const handleFinish = () => {
     navigate("lessonList");
   };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Way to go,you won!</Text>
-      <Text style={styles.correct}>Correct 5 / 10</Text>
+      <Text style={styles.correct}>Correct {correctAns} / 10</Text>
       <Image source={require("../assets/fun.jpg")} style={styles.image} />
       <Text style={styles.textWin}>
         Keep practing and give another game a try
