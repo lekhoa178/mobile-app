@@ -1,14 +1,14 @@
 import { StyleSheet, View, Text } from 'react-native';
 import Title from "../ui/Title";
 import Heart from "../ui/Heart";
-function NotebookWord(itemData) {
+function NotebookWord(itemData, dispatch) {
     return (
         <View style={styles.container}>
             <View style={styles.wordCard}>
                 <Title oStyle={{fontSize: 25}}>{itemData.item.lexicon.word}</Title>
                 <Text>{itemData.item.lexicon.definition}</Text>
             </View>
-            <Heart fav={true} word={itemData.item.lexicon.word}/>
+            <Heart fav={true} word={itemData.item.lexicon.word} dispatch={dispatch}/>
         </View>
     );
 }

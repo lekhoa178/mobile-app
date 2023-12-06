@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 import NotebookWord from "./NotebookWord";
+import {useDispatch} from "react-redux";
 
 const words = [
     { id: 1, word: 'Hello', def: 'hello every body' },
@@ -8,12 +9,14 @@ const words = [
 ];
 
 function NotebookList({notebookList}) {
+    const dispatch = useDispatch();
+
     return (
         <FlatList
             style={styles.container}
             data={notebookList}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={NotebookWord}
+            renderItem={(itemData) => NotebookWord(itemData, dispatch)}
         ></FlatList>
     );
 }

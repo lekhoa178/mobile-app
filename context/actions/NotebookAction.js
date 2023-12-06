@@ -5,3 +5,16 @@ export const setNotebooks = payload => {
     }
 
 }
+export const addNotebook = payload => {
+    return {
+        type: "ADD_NOTEBOOK",
+        payload
+    }
+}
+
+export const removeNotebook = payload => {
+    return {
+        type: "REMOVE_NOTEBOOK",
+        payload
+    }
+}

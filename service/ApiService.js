@@ -14,6 +14,7 @@ export const getDefinition = async function(word) {
 };
 
 export const getLexicon = async function(synsetId, lexiconNum) {
+  console.log(API_URL + `/dictionary/lexicon/${synsetId}/${lexiconNum}`);
   return AJAX(API_URL + `/dictionary/lexicon/${synsetId}/${lexiconNum}`);
 }
 

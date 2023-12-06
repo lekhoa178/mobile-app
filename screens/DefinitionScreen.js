@@ -32,7 +32,7 @@ function DefinitionScreen() {
 
   return (
     <View style={styles.container}>
-      <WordPanel word={wordDetail} />
+      <WordPanel word={wordDetail} dispatch={dispatch}/>
       <DefinitionContainer
         wordsDefinition={wordsDefinition}
         dispatch={dispatch}

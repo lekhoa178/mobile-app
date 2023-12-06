@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -29,13 +29,15 @@ import LessonStack from "./components/stack/LessonStack";
 import HomeStack from "./components/stack/HomeStack";
 import { rootNavigation } from "./RootNavigation";
 import NotebookScreen from "./screens/NotebookScreen";
-import { Provider } from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import store from "./context/store";
+import {setNotebooks} from "./context/actions/NotebookAction";
+import {getAccountId} from "./helpers";
+import {getAllNotebookFromAccount} from "./service/NotebookService";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-
   return (
     <Provider store={store}>
       <NavigationContainer ref={rootNavigation}>
