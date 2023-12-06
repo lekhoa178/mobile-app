@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-function BorderTitle({ children, size }) {
+function BorderTitle({ children, styleTrans, styleText }) {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={[styles.title, { fontSize: size }]}>{children}</Text>
+    <View style={[styles.titleContainer, styleTrans]}>
+      <Text style={[styles.title, styleTrans]}>
+        {children}
+      </Text>
     </View>
   );
 }
@@ -13,15 +15,13 @@ export default BorderTitle;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    width: 100,
-    backgroundColor: '#BBB',
     padding: 10,
-    textAlign: 'center',
     borderRadius: 10,
+    marginBottom: 10
   },
 
   title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
+    fontWeight: "bold",
+    fontSize: 20
+  }
 });

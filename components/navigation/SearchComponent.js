@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import SuggestionList from "./SuggestionList";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import {setSearchWords, setWords} from "../../context/actions/SearchAction";
+import { setSearchWords, setWords } from "../../context/actions/SearchAction";
 import { searchByWord } from "../../service/DictionaryService";
 // import { setWords } from "../../context/actions/SearchAction";
 // import styled from 'styled-components/native';
@@ -26,8 +26,7 @@ const SuggestionListView = styled.View`
   z-index: 0;
 `;
 function SearchComponent() {
-  const word = useSelector(state => state.search.word);
-  const wordList = useSelector(state => state.search.wordResult);
+  const word = useSelector(state => state.search.words);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const [suggestions, setSuggestions] = useState([]);
@@ -35,13 +34,20 @@ function SearchComponent() {
     setInput(text);
     dispatch(setWords(text));
   };
+  useEffect(
+    () => {
+      console.log("word", word);
+      setInput(word);
+    },
+    [word]
+  );
 
   return (
     <View>
       <TextInput
         onChangeText={handleChangeInput}
         placeholder="Nhập từ vựng để tra"
-        value={input}
+        value={input.replaceAll("_", " ")}
         style={{
           borderBottomWidth: 1,
           borderBottomColor: "blue",
@@ -55,8 +61,7 @@ function SearchComponent() {
       {suggestions.length > 0 &&
         <SuggestionListView style={{ elevation: 5 }}>
           <SuggestionList suggestions={suggestions} />
-        </SuggestionListView>
-        }
+        </SuggestionListView>}
     </View>
   );
 }

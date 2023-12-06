@@ -35,8 +35,6 @@ import store from "./context/store";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
 
   return (
     <Provider store={store}>
@@ -51,7 +49,6 @@ export default function App() {
             name="Home"
             component={HomeStack}
             options={{
-              // headerShown: false,
               tabBarVisible: false,
               tabBarLabel: "Trang chủ",
               tabBarIcon: ({ color, size }) =>
@@ -101,28 +98,9 @@ export default function App() {
             name="Lesson"
             component={LessonStack}
             options={{
-              tabBarVisible: false,
               tabBarLabel: "Lesson",
               tabBarIcon: ({ color, size }) =>
-                <FontAwesome name="star" color={color} size={size} />,
-              headerTitle: () => {
-                return <SearchComponent />;
-              },
-
-              headerRight: () => {
-                return <RightBarHeader />;
-              },
-
-              headerLeft: () => {
-                return (
-                  <Ionicons
-                    name="arrow-back-sharp"
-                    size={24}
-                    color="#2499FF"
-                    style={{ marginLeft: 10 }}
-                  />
-                );
-              }
+                <FontAwesome name="star" color={color} size={size} />
             }}
           />
           <Tab.Screen

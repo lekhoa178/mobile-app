@@ -1,11 +1,10 @@
 import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
 import Title from "./ui/Title";
 import WordCard from "./WordCard";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { searchByWord } from "../service/DictionaryService";
-import {useEffect, useState} from "react";
-import {searchWord} from "../service/ApiService";
-
+import { useEffect, useState } from "react";
+import { searchWord } from "../service/ApiService";
 
 const words = [
   { id: 1, word: "Hello", def: "Hello" },
@@ -15,24 +14,30 @@ const words = [
 
 function WordList() {
   const dispatch = useDispatch();
-  const [resultState,setResultState] = useState(words);
+  const [resultState, setResultState] = useState(words);
   const wordSearch = useSelector(state => state.search.words);
-  useEffect(() => {
-    if (wordSearch.length === 0){ setResultState([]); return; }
-    const fetchData = async () => {
-      const result = await searchByWord(wordSearch);
-      console.log("Result Search: ",result);
-      setResultState(result);
-    };
+  useEffect(
+    () => {
+      if (wordSearch.length === 0) {
+        setResultState([]);
+        return;
+      }
+      const fetchData = async () => {
+        const result = await searchByWord(wordSearch);
+        console.log("Result Search: ", result);
+        setResultState(result);
+      };
 
-    fetchData();
-  },[wordSearch]);
+      fetchData();
+    },
+    [wordSearch]
+  );
   return (
     <FlatList
       style={styles.container}
       data={resultState}
       keyExtractor={item => item.id}
-      renderItem={itemData => WordCard(itemData,dispatch)}
+      renderItem={itemData => WordCard(itemData, dispatch, wordSearch)}
     />
   );
 }
