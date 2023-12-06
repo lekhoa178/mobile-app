@@ -12,7 +12,6 @@ function NotebookScreen() {
       const accountId = await getAccountId();
       const result = await getAllNotebookFromAccount(accountId);
       setNotebookList(result);
-      console.log("Result get all notebook: ",result);
     };
     fetchData();
   }, []);

@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 
 const OptionCard = (word, selectHandle, index, isAnswer) => {
     return(
-        <Pressable onPress={() => selectHandle(isAnswer, index)}>
+        <Pressable onPress={() => selectHandle(isAnswer, index)} key={index}>
             <View style={styles.optionCard}>
                 <Text style={{fontSize: 17}}>{word}</Text>
             </View>

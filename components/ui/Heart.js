@@ -2,9 +2,9 @@ import {Pressable} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import {useState} from "react";
 
-function Heart() {
+function Heart({fav, callback}) {
 
-    const [favorite, setFavourite] = useState(false);
+    const [favorite, setFavourite] = useState({fav});
     function favor() {
         setFavourite(!favorite);
     }

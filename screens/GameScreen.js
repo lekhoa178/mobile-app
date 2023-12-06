@@ -1,4 +1,4 @@
-import {Button, Pressable, StyleSheet, Text, Touchable, View} from "react-native";
+import {Button, Dimensions, Pressable, StyleSheet, Text, Touchable, useWindowDimensions, View} from "react-native";
 import Title from "../components/ui/Title";
 import Volume from "../components/ui/Volume";
 import React, {useEffect, useState} from "react";
@@ -6,13 +6,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {getQAs} from "../service/LessonService";
 import AnswerContainer from "../components/game/AnswerContainer";
 import OptionContainer from "../components/game/OptionContainer";
-import {setAnswerSentence, setOptionSentence} from "../context/actions/LessonAction";
+import {setAnswerSentence, setCorrectAnswer, setOptionSentence} from "../context/actions/LessonAction";
 import {navigate} from "../RootNavigation";
+import NoticePanel from "../components/ui/NoticePanel";
 
 let questionsType = [];
-let correctAns = -1;
+let correctAns = 0;
 let ansWords = [];
 let optWords = [];
+let questionTitle = "";
 
 const totalQuestions = 13;
 
@@ -32,7 +34,9 @@ function GameScreen() {
 
     const { stageId, levelId } = useSelector(state => state.lesson.id);
     const [curQuestion, setCurQuestion] = useState(-1);
+    const [noticePanel, setNoticePanel] = useState(<View></View>);
     const [sentences, setSentences] = useState([]);
+    const [confirm, setConfirm] = useState(true);
 
     useEffect(() => {
         const setupRound = async() => {
@@ -44,12 +48,17 @@ function GameScreen() {
             }
         }
 
+        questionTitle = questionsType[0] >= 1 ? "Translate to Vietnamese" : "Listen and Rewrite";
         setupRound();
     }, [stageId, levelId]);
 
     const nextQuestion = function() {
 
+        setConfirm(true);
+
         if (curQuestion + 1 >= totalQuestions) {
+            console.log("Correct Answer:", correctAns);
+            dispatch(setCorrectAnswer(correctAns));
             navigate("finish-game");
             return;
         }
@@ -64,6 +73,7 @@ function GameScreen() {
         const ran = sentences[randomQues];
 
         if (questionsType[curQuestion + 1] >= 1) {
+            questionTitle = "Translate to Vietnamese";
             let ranWords = ran.vietnamese.split(' ');
 
             ranWords = ranWords.slice(0, Math.min(ranWords.length, 4));
@@ -73,6 +83,7 @@ function GameScreen() {
 
             optWords = sortRandomly([...optWords, ...ranWords]);
         } else {
+            questionTitle = "Listen and Rewrite";
             let ranWords = ran.english.split(' ');
 
             ranWords = ranWords.slice(0, Math.min(ranWords.length, 4));
@@ -90,23 +101,34 @@ function GameScreen() {
     }
 
     const validateAns = () => {
-
         const ansStr = ansWords.join(' ');
         const {english, vietnamese} = sentences[curQuestion];
 
         if (questionsType[curQuestion] >= 1) {
-            if (vietnamese === ansStr) {
+            let content = "";
+            if (vietnamese === ansStr)
                 correctAns++;
-                console.log("correct");
-            }
-        } else {
-            if (english === ansStr) {
-                correctAns++;
-                console.log("correct");
-            }
-        }
+            else
+                content = vietnamese;
 
-        nextQuestion();
+            setNoticePanel(<NoticePanel closeHandle={closeHandle} correct={vietnamese === ansStr}>{content}</NoticePanel>);
+
+        } else {
+            let content = "";
+
+            if (english === ansStr)
+                correctAns++;
+            else
+                content = english;
+
+            setNoticePanel(<NoticePanel closeHandle={closeHandle} correct={vietnamese === ansStr}>{content}</NoticePanel>);
+        }
+    }
+
+    const closeHandle = () => {
+        setConfirm(false);
+
+        setNoticePanel(<View></View>);
     }
 
     const optionSelectHandle = function(isAnswer, index) {
@@ -134,7 +156,7 @@ function GameScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Title oStyle={{fontSize: 25, padding: 0}}>Translate to Vietnamese</Title>
+                <Title oStyle={{fontSize: 25, padding: 0, textTransform: 'capitalize'}}>{questionTitle}</Title>
                 <View style={styles.sentenceContainer}>
                     <Volume word={sentences[curQuestion].english}/>
                     <Text style={{margin: 10, fontSize: 17}}>{questionsType[curQuestion] >= 1 ?
@@ -147,14 +169,26 @@ function GameScreen() {
 
             <OptionContainer selectHandle={optionSelectHandle}></OptionContainer>
 
-            <View style={styles.confirmContainer}>
-                <Pressable
-                    style={styles.buttonConfirm}
-                    onPress={validateAns}
-                >
-                    <Text style={styles.textConfirm}>CONFIRM</Text>
-                </Pressable>
-            </View>
+            {confirm ? (
+                <View style={styles.confirmContainer}>
+                    <Pressable
+                        style={styles.buttonConfirm}
+                        onPress={validateAns}
+                    >
+                        <Text style={styles.textConfirm}>CONFIRM</Text>
+                    </Pressable>
+                </View>
+            ) : (
+                <View style={styles.confirmContainer}>
+                    <Pressable
+                        style={[styles.buttonConfirm, {backgroundColor: '#57dc42', borderColor: '#259b13'}]}
+                        onPress={nextQuestion}
+                    >
+                        <Text style={styles.textConfirm}>NEXT</Text>
+                    </Pressable>
+                </View>)}
+
+            {noticePanel}
         </View>);
 }
 
@@ -162,6 +196,7 @@ export default GameScreen;
 
 const styles = StyleSheet.create({
     container: {
+        position: 'relative',
         paddingTop: 20,
         flex: 1,
         justifyContent: "center",
@@ -176,7 +211,7 @@ const styles = StyleSheet.create({
     },
 
     sentenceContainer: {
-        flex: 0.4,
+        flex: 0.5,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -208,7 +243,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius:10,
         borderTopLeftRadius:10,
         paddingVertical:15,
-        paddingHorizontal:140,
+        width: Dimensions.get("window").width * 0.9,
         borderBottomWidth:5,
         borderColor:"#1664a6"
 

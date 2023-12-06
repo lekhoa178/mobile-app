@@ -3,30 +3,33 @@ import Title from "../ui/Title";
 import Heart from "../ui/Heart";
 function NotebookWord(itemData) {
     return (
-        <View style={styles.wordCard}>
-            <Title oStyle={{fontSize: 25}}>{itemData.item.word}</Title>
-            <View style={styles.textCard}>
-                <Text>{itemData.item.def}</Text>
-                <Heart />
+        <View style={styles.container}>
+            <View style={styles.wordCard}>
+                <Title oStyle={{fontSize: 25}}>{itemData.item.lexicon.word}</Title>
+                <Text>{itemData.item.lexicon.definition}</Text>
             </View>
+            <Heart fav={true}/>
         </View>
     );
 }
 
 
 const styles = StyleSheet.create({
-    wordCard: {
-        flexDirection:"column",
+    container: {
         flex: 1,
+        flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: '#BBB',
         paddingBottom: 20,
+        justifyContent: 'center',
+        paddingRight: 20
     },
-    textCard: {
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"space-between"
+
+    wordCard: {
+        flexDirection:"column",
+        flex: 1,
     },
+
     hearIcon : {
         fontSize:17,
     }

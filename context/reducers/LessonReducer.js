@@ -2,7 +2,8 @@ const initialState = {
     stages: [],
     id: {},
     answerSentence: [],
-    optionSentence: []
+    optionSentence: [],
+    correctAns: 0
 };
 
 const lessonReducer = (state = initialState, action) => {
@@ -26,6 +27,10 @@ const lessonReducer = (state = initialState, action) => {
         case "SET_OPT_SEN":
             return { ...state,
                 optionSentence: action.payload };
+        case "SET_CORRECT_ANS":
+            return {
+                ...state,
+                correctAns: action.payload};
 
         default:
             return state;

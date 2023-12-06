@@ -25,3 +25,8 @@ export const setOptionSentence = payload => ({
     type: "SET_OPT_SEN",
     payload
 })
+
+export const setCorrectAnswer = payload => ({
+    type: "SET_CORRECT_ANS",
+    payload
+})
