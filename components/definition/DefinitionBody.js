@@ -43,13 +43,7 @@ function renderDefItem(itemData, dispatch) {
 }
 
 function DefinitionBody({ wordsDefinition, dispatch }) {
-  return (
-    // <FlatList
-    //   data={wordsDefinition}
-    //   keyExtractor={(item, index) => index.toString()}
-    //   renderItem={renderDefItem}
-    // ></FlatList>
-
+  return ( 
     <View
       style={{
         flexDirection: "row",
