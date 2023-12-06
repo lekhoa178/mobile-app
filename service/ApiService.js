@@ -21,11 +21,10 @@ export const getNotebook = async function(accountId) {
   return AJAX(API_URL + `/dictionary/notebook/${accountId}`);
 };
 
-export const updateNotebook = function(word, fav, accountId) {
-  AJAX(
-    API_URL + `/dictionary/notebook/update/${accountId}`, "POST", {
-        word, fav
-      }
+export const updateNotebook = async function(word, favorite, accountId) {
+  console.log(word, favorite, accountId);
+  return await AJAX(
+    API_URL + `/dictionary/notebook/update/${word}/${favorite?1:0}/${accountId}`,
   );
 };
 

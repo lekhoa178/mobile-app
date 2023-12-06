@@ -3,21 +3,25 @@ import React, {useEffect, useState} from "react";
 import NotebookList from "../components/notebook/NotebookList";
 import {getAccountId} from "../helpers";
 import {getAllNotebookFromAccount} from "../service/NotebookService";
+import {useDispatch, useSelector} from "react-redux";
+import {setNotebooks} from "../context/actions/NotebookAction";
 
 
 function NotebookScreen() {
-  const [notebookList,setNotebookList] = useState([]);
+  const dispatch = useDispatch();
+
+  const notebooks = useSelector(state => state.notebook.notebooks);
   useEffect(() => {
     const fetchData = async () => {
       const accountId = await getAccountId();
       const result = await getAllNotebookFromAccount(accountId);
-      setNotebookList(result);
+      dispatch(setNotebooks(result));
     };
     fetchData();
   }, []);
   return (
     <View style={styles.container}>
-      <NotebookList notebookList={notebookList}/>
+      <NotebookList notebookList={notebooks}/>
     </View>
   );
 }

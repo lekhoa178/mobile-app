@@ -53,7 +53,7 @@ export const AJAX = async function(
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
     return data;
   } catch (err) {
-    throw err;
+    console.error(err);
   }
 };
 export const AJAX_REQUEST = async (

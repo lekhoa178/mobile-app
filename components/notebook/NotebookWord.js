@@ -8,7 +8,7 @@ function NotebookWord(itemData) {
                 <Title oStyle={{fontSize: 25}}>{itemData.item.lexicon.word}</Title>
                 <Text>{itemData.item.lexicon.definition}</Text>
             </View>
-            <Heart fav={true}/>
+            <Heart fav={true} word={itemData.item.lexicon.word}/>
         </View>
     );
 }
