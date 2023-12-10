@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import {StyleSheet, View, Text, ScrollView} from "react-native";
 import WordPanel from "../components/definition/WordPanel";
 import DefinitionContainer from "../components/definition/DefinitionContainer";
 import { useEffect, useState } from "react";

@@ -34,103 +34,131 @@ import store from "./context/store";
 import {setNotebooks} from "./context/actions/NotebookAction";
 import {getAccountId} from "./helpers";
 import {getAllNotebookFromAccount} from "./service/NotebookService";
+import LoginScreen from "./screens/LoginScreen";
 
+import { LogBox } from 'react-native';
+import ProfileStack from "./components/stack/ProfileStack";
+// LogBox.ignoreLogs(['Asyncstorage: ...']); // Ignore log notification by message
+// LogBox.ignoreAllLogs(); //Ignore all log notifications
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  return (
-    <Provider store={store}>
-      <NavigationContainer ref={rootNavigation}>
-        <Tab.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            activeTintColor: "#e91e63"
-          }}
-        >
-          <Tab.Screen
-            name="Home"
-            component={HomeStack}
-            options={{
-              tabBarVisible: false,
-              tabBarLabel: "Trang chủ",
-              tabBarIcon: ({ color, size }) =>
-                <FontAwesome name="home" color={color} size={size} />,
-              headerTitle: ({ navigation }) => {
-                return <SearchComponent />;
-              },
+    const [loggedIn,setLoggedIn] = useState(false);
+    if(loggedIn){
+        return (
+            <Provider store={store}>
+                <NavigationContainer ref={rootNavigation}>
+                    <Tab.Navigator
+                        initialRouteName="Home"
+                        screenOptions={{
+                            activeTintColor: "#e91e63"
+                        }}
+                    >
 
-              headerRight: () => {
-                return <RightBarHeader />;
-              },
+                        <Tab.Screen
+                            name="Home"
+                            component={HomeStack}
+                            options={{
+                                tabBarVisible: false,
+                                tabBarLabel: "Trang chủ",
+                                tabBarIcon: ({ color, size }) =>
+                                    <FontAwesome name="home" color={color} size={size} />,
+                                headerTitle: ({ navigation }) => {
+                                    return <SearchComponent />;
+                                },
 
-              headerLeft: () => {
-                return <LeftBarHeader />;
-              }
-            }}
-          />
-          <Tab.Screen
-            name="Notebook"
-            component={NotebookScreen}
-            options={{
-              tabBarVisible: false,
-              tabBarLabel: "Số tay",
-              tabBarIcon: ({ color, size }) =>
-                <FontAwesome name="star" color={color} size={size} />,
-              headerTitle: () => {
-                return <SearchComponent />;
-              },
+                                headerRight: () => {
+                                    return <RightBarHeader />;
+                                },
 
-              headerRight: () => {
-                return <RightBarHeader />;
-              },
+                                headerLeft: () => {
+                                    return <LeftBarHeader />;
+                                }
+                            }}
+                        />
+                        <Tab.Screen
+                            name="Notebook"
+                            component={NotebookScreen}
+                            options={{
+                                tabBarVisible: false,
+                                tabBarLabel: "Số tay",
+                                tabBarIcon: ({ color, size }) =>
+                                    <FontAwesome name="star" color={color} size={size} />,
+                                // headerTitle: () => {
+                                //     return <SearchComponent />;
+                                // },
+                                //
+                                // headerRight: () => {
+                                //     return <RightBarHeader />;
+                                // },
+                                //
+                                // headerLeft: () => {
+                                //     return (
+                                //         <Ionicons
+                                //             name="arrow-back-sharp"
+                                //             size={24}
+                                //             color="#2499FF"
+                                //             style={{ marginLeft: 10 }}
+                                //         />
+                                //     );
+                                // }
+                            }}
+                        />
+                        <Tab.Screen
+                            name="Lesson"
+                            component={LessonStack}
+                            options={{
+                                tabBarLabel: "Lesson",
+                                tabBarIcon: ({ color, size }) =>
+                                    <FontAwesome name="star" color={color} size={size} />
+                            }}
+                        />
+                        <Tab.Screen
+                            name="profile"
+                            component={ProfileStack}
+                            options={{
+                                tabBarLabel: "Profile",
+                                tabBarIcon: ({ color, size }) =>
+                                    <FontAwesome name="star" color={color} size={size} />
+                            }}
+                        />
+                        {/*<Tab.Screen*/}
 
-              headerLeft: () => {
-                return (
-                  <Ionicons
-                    name="arrow-back-sharp"
-                    size={24}
-                    color="#2499FF"
-                    style={{ marginLeft: 10 }}
-                  />
-                );
-              }
-            }}
-          />
-          <Tab.Screen
-            name="Lesson"
-            component={LessonStack}
-            options={{
-              tabBarLabel: "Lesson",
-              tabBarIcon: ({ color, size }) =>
-                <FontAwesome name="star" color={color} size={size} />
-            }}
-          />
-          <Tab.Screen
-            name="Login"
-            component={LoginStack}
-            options={{
-              headerShown: false,
-              tabBarVisible: false,
-              tabBarLabel: "Login",
-              tabBarIcon: ({ color, size }) =>
-                <Entypo name="login" size={24} color={color} />,
+                        {/*    name="Login"*/}
+                        {/*    component={LoginStack}*/}
+                        {/*    options={{*/}
+                        {/*        headerShown: false,*/}
+                        {/*        tabBarVisible: false,*/}
+                        {/*        tabBarLabel: "Login",*/}
+                        {/*        tabBarIcon: ({ color, size }) =>*/}
+                        {/*            <Entypo name="login" size={24} color={color} />,*/}
+                        {/*        headerLeft: () => {*/}
+                        {/*            return (*/}
+                        {/*                <Ionicons*/}
+                        {/*                    name="arrow-back-sharp"*/}
+                        {/*                    size={24}*/}
+                        {/*                    color="#2499FF"*/}
+                        {/*                    style={{ marginLeft: 10 }}*/}
+                        {/*                />*/}
+                        {/*            );*/}
+                        {/*        }*/}
+                        {/*    }}*/}
+                        {/*/>*/}
 
-              headerLeft: () => {
-                return (
-                  <Ionicons
-                    name="arrow-back-sharp"
-                    size={24}
-                    color="#2499FF"
-                    style={{ marginLeft: 10 }}
-                  />
-                );
-              }
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+                    </Tab.Navigator>
+                </NavigationContainer>
+            </Provider>
+        );
+    }
+    else {
+        return (
+            <NavigationContainer ref={rootNavigation}>
+                <LoginStack  setLoggedIn = {setLoggedIn} />
+            </NavigationContainer>
+        );
+
+    }
+
 }
 
 const styles = StyleSheet.create({

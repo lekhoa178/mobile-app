@@ -5,7 +5,7 @@ import {
   TextInput,
   StyleSheet,
   Switch,
-  Pressable
+  Pressable,Alert
 } from "react-native";
 import { authenticate } from "../service/ApiService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,12 +20,37 @@ const LoginScreen = ({ navigation, route }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
-    await login(username, password);
+    try {
+      let token = await login(username, password);
+      if(token != null){
+        route.params.setLoggedIn(true)
+      }
+    }
+    catch (err){
+      Alert.alert(
+          'Login fail',
+          'Username or password wrong!!!',
+          [
+            {
+              text: 'Cancel',
+              // onPress: () => Alert.alert('Cancel Pressed'),
+              style: 'cancel',
+            },
+          ],
+          {
+            cancelable: true,
+            onDismiss: () =>
+                Alert.alert(
+                    'This alert was dismissed by tapping outside of the alert dialog.',
+                ),
+          },
+      );
+    }
   };
   const handleSignUp = () => {
     navigation.navigate("signup");
   };
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>MONOLINGO</Text>

@@ -58,5 +58,6 @@ export async function login(username, password) {
   await storeToken(result.token);
   const account = await getAccountByUsername(username);
   await storageAccountId(account.accountId + "");
-  navigate("HomeScreen");
+  // navigate("HomeScreen");
+  return result.token;
 }

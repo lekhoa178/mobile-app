@@ -57,7 +57,6 @@ function GameScreen() {
         setConfirm(true);
 
         if (curQuestion + 1 >= totalQuestions) {
-            console.log("Correct Answer:", correctAns);
             dispatch(setCorrectAnswer(correctAns));
             navigate("finish-game");
             return;
