@@ -14,7 +14,6 @@ export const getDefinition = async function(word) {
 };
 
 export const getLexicon = async function(synsetId, lexiconNum) {
-  console.log(API_URL + `/dictionary/lexicon/${synsetId}/${lexiconNum}`);
   return AJAX(API_URL + `/dictionary/lexicon/${synsetId}/${lexiconNum}`);
 }
 
@@ -23,9 +22,18 @@ export const getNotebook = async function(accountId) {
 };
 
 export const updateNotebook = async function(word, favorite, accountId) {
-  console.log(word, favorite, accountId);
   return await AJAX(
     API_URL + `/dictionary/notebook/update/${word}/${favorite?1:0}/${accountId}`,
+  );
+};
+
+export const getResearch = async function(accountId) {
+  return AJAX(API_URL + `/dictionary/research/${accountId}`);
+}
+
+export const updateResearch = async function(word, add, accountId) {
+  return await AJAX(
+      API_URL + `/dictionary/research/update/${word}/${add?1:0}/${accountId}`,
   );
 };
 

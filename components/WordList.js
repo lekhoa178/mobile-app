@@ -5,39 +5,35 @@ import { useSelector, useDispatch } from "react-redux";
 import { searchByWord } from "../service/DictionaryService";
 import { useEffect, useState } from "react";
 import { searchWord } from "../service/ApiService";
+import {getAllResearchFromAccount} from "../service/ResearchService";
+import {getAccountId} from "../helpers";
 
-const words = [
-  { id: 1, word: "Hello", def: "Hello" },
-  { id: 2, word: "Syn", def: "synchornization" },
-  { id: 3, word: "Heroine", def: "negative drug" }
-];
-
-function WordList() {
+function WordList({search}) {
   const dispatch = useDispatch();
-  const [resultState, setResultState] = useState(words);
-  const wordSearch = useSelector(state => state.search.words);
+  const [resultState, setResultState] = useState([]);
   useEffect(
     () => {
-      if (wordSearch.length === 0) {
-        setResultState([]);
-        return;
-      }
-      const fetchData = async () => {
-        const result = await searchByWord(wordSearch);
-        console.log("Result Search: ", result);
-        setResultState(result);
-      };
+            const fetchData = async () => {
+
+            if (search.length === 0) {
+                const result = await getAllResearchFromAccount(await getAccountId());
+                setResultState(result);
+                return;
+            }
+
+            const result = await searchByWord(search);
+                console.log(result);
+            setResultState(result);
+        };
 
       fetchData();
-    },
-    [wordSearch]
-  );
+    }, [search]);
   return (
     <FlatList
       style={styles.container}
       data={resultState}
       keyExtractor={item => item.id}
-      renderItem={itemData => WordCard(itemData, dispatch, wordSearch)}
+      renderItem={itemData => WordCard(itemData, dispatch, search)}
     />
   );
 }
