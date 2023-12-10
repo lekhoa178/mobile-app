@@ -121,7 +121,7 @@ function GameScreen() {
             else
                 content = english;
 
-            setNoticePanel(<NoticePanel closeHandle={closeHandle} correct={vietnamese === ansStr}>{content}</NoticePanel>);
+            setNoticePanel(<NoticePanel closeHandle={closeHandle} correct={english === ansStr}>{content}</NoticePanel>);
         }
     }
 

@@ -15,7 +15,6 @@ function DefinitionScreen() {
   const [wordsDefinition, setWordsDefinition] = useState([]);
   // dispatch(setWords(wordDetail));
 
-  console.log("Word detail in definition: ", wordDetail);
   useEffect(
     () => {
       const fetchData = async () => {
@@ -23,21 +22,27 @@ function DefinitionScreen() {
         setWordsDefinition(result);
       };
       fetchData();
-      if (wordsSearch != wordDetail) {
+      if (wordsSearch !== wordDetail) {
         navigate("HomeScreen");
       }
     },
     [wordsSearch]
   );
 
+  if (wordsDefinition.length === 0)
+      return <></>;
+
   return (
-    <View style={styles.container}>
-      <WordPanel word={wordDetail} dispatch={dispatch}/>
-      <DefinitionContainer
-        wordsDefinition={wordsDefinition}
-        dispatch={dispatch}
-      />
-    </View>
+      <ScrollView>
+          <View style={styles.container}>
+              <WordPanel word={wordDetail} def={wordsDefinition[Object.keys(wordsDefinition)[0]][0].definition} dispatch={dispatch}/>
+              <DefinitionContainer
+                  wordsDefinition={wordsDefinition}
+                  dispatch={dispatch}
+              />
+          </View>
+      </ScrollView>
+
   );
 }
 

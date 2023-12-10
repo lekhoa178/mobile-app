@@ -10,13 +10,13 @@ const notebookReducer = (state = initialState, action) => {
                 notebooks: action.payload};
         case "REMOVE_NOTEBOOK":
             const nbs = state.notebooks.filter(book => book.lexicon.word !== action.payload);
+            console.log("--------------", nbs);
             return {
                 ...state,
                 notebooks: nbs
             }
 
         case "ADD_NOTEBOOK":
-            console.log("FUckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",[...state.notebooks, action.payload]);
             return {
                 ...state,
                 notebooks: [...state.notebooks, action.payload]

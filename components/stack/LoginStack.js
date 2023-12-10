@@ -3,7 +3,8 @@ import SignUpScreen from "../../screens/SignUpScreen";
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-function LoginStack() {
+function LoginStack({setLoggedIn}) {
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -17,8 +18,11 @@ function LoginStack() {
                 options={{
                     tabBarVisible: false,
                 }}
+                initialParams={{setLoggedIn: setLoggedIn}}
             />
-            <Stack.Screen name='signup' component={SignUpScreen} />
+            <Stack.Screen name='signup'
+                component={SignUpScreen}
+                initialParams={{setLoggedIn: setLoggedIn}}/>
         </Stack.Navigator>
     );
 }

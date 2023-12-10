@@ -1,15 +1,29 @@
-import { StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, Pressable} from 'react-native';
 import Title from "../ui/Title";
 import Heart from "../ui/Heart";
+import {Notebook} from "../../models/Notebook";
+import {getAccountId} from "../../helpers";
+import {setWordDetail, setWords} from "../../context/actions/SearchAction";
+import {navigate} from "../../RootNavigation";
 function NotebookWord(itemData, dispatch) {
+
+    function setWordDetails(text) {
+        console.log(text);
+        dispatch(setWordDetail(text));
+        dispatch(setWords(text));
+        navigate("Definition");
+    }
+
     return (
-        <View style={styles.container}>
-            <View style={styles.wordCard}>
-                <Title oStyle={{fontSize: 25}}>{itemData.item.lexicon.word}</Title>
-                <Text>{itemData.item.lexicon.definition}</Text>
+        <Pressable onPress={() => setWordDetails(itemData.item.lexicon.word)}>
+            <View style={styles.container}>
+                <View style={styles.wordCard}>
+                    <Title oStyle={{fontSize: 25}}>{itemData.item.lexicon.word.replaceAll('_', ' ')}</Title>
+                    <Text>{itemData.item.lexicon.definition}</Text>
+                </View>
+                <Heart fav={true} notebook={new Notebook(getAccountId(), itemData.item.lexicon)} dispatch={dispatch}/>
             </View>
-            <Heart fav={true} word={itemData.item.lexicon.word} dispatch={dispatch}/>
-        </View>
+        </Pressable>
     );
 }
 

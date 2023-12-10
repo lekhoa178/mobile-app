@@ -11,7 +11,6 @@ function NotebookScreen() {
   const dispatch = useDispatch();
 
   const notebooks = useSelector(state => state.notebook.notebooks);
-  console.log(notebooks);
   useEffect(() => {
     const fetchData = async () => {
       const accountId = await getAccountId();

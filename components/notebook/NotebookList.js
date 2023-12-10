@@ -2,12 +2,6 @@ import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 import NotebookWord from "./NotebookWord";
 import {useDispatch} from "react-redux";
 
-const words = [
-    { id: 1, word: 'Hello', def: 'hello every body' },
-    { id: 2, word: 'Syn', def: 'synchornization' },
-    { id: 3, word: 'Heroine', def: 'negative drug' },
-];
-
 function NotebookList({notebookList}) {
     const dispatch = useDispatch();
 

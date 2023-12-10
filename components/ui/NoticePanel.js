@@ -9,7 +9,7 @@ const NoticePanel = ({children, correct, closeHandle}) => {
             {correct ? (
                 <View style={[styles.panelContainer, {justifyContent: 'center'}]}>
                     <Title oStyle={[styles.title, {color: '#1cd300'}]}>
-                        Wrong Answer
+                        Bingo!!!
                     </Title>
                     <AntDesign name="checkcircle" size={54} color="#1cd300" />
                 </View>

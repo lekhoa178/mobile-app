@@ -4,13 +4,24 @@ import { useEffect, useState } from "react";
 import Volume from "../ui/Volume";
 import Title from "../ui/Title";
 import Heart from "../ui/Heart";
+import {Notebook} from "../../models/Notebook";
+import {getAccountId} from "../../helpers";
+import {Lexicon} from "../../models/Lexicon";
 
-function WordPanel({ word, dispatch}) {
-  const [favorite, setFavourite] = useState(false);
-  const [wordDisplay, setWordDisplay] = useState("");
-  function favor() {
-    setFavourite(!favorite);
-  }
+function WordPanel({ word, def, dispatch}) {
+  const [notebookModel, setNotebookModel] = useState({});
+
+  useEffect(() => {
+
+    const fetchNotebook = async () => {
+      const model = new Notebook(await getAccountId(), new Lexicon(0, 0, word, def));
+      setNotebookModel(model);
+    }
+
+    fetchNotebook();
+
+  }, [word]);
+
 
   return (
     <View style={styles.container}>
@@ -19,7 +30,7 @@ function WordPanel({ word, dispatch}) {
       </Title>
       <View style={styles.utilityContainer}>
         <Volume style={styles.volume} word={word} />
-        <Heart word={word} fav={false} dispatch={dispatch}/>
+        <Heart notebook={notebookModel} fav={false} dispatch={dispatch}/>
       </View>
     </View>
   );

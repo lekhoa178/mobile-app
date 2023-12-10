@@ -14,7 +14,7 @@ import { login } from "../service/LoginService";
 // import { Network } from "expo-network";
 // const host = Constants.manifest.hostUri | null;
 const marginLeft = 20;
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, route }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
