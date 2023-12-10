@@ -53,3 +53,6 @@ export const register = async function(username, password) {
 export const getAccountByUsername = async function(username) {
   return await AJAX(API_URL + `/dictionary/account/${username}`);
 }
+export const getAccountById = async function(accountId){
+  return await AJAX(API_URL + `/dictionary/accountById/${accountId}`);
+}
