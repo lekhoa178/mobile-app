@@ -10,7 +10,6 @@ const notebookReducer = (state = initialState, action) => {
                 notebooks: action.payload};
         case "REMOVE_NOTEBOOK":
             const nbs = state.notebooks.filter(book => book.lexicon.word !== action.payload);
-            console.log("--------------", nbs);
             return {
                 ...state,
                 notebooks: nbs
