@@ -6,7 +6,6 @@ import {
     TextInput,
     View,DatePickerAndroid,Button,Alert
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import {useState,useEffect} from "react";
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -56,7 +55,6 @@ function ProfileScreen({ navigation, route }) {
     };
     async function submitChange(){
         try {
-            console.log("User: ",user);
             await updateAccount(user);
              Alert.alert(
           "Thông báo",
@@ -64,6 +62,20 @@ function ProfileScreen({ navigation, route }) {
           [{ text: "OK", onPress: () => console.log("") }],
           { cancelable: false }
         );
+        const IdAccount = await getAccountId();
+        setAccountId(IdAccount);
+        const accountCurrent = await getAccountByAccountId(IdAccount);
+        setAccount(await getAccountByAccountId(accountId));
+            setUser(prevState => ({
+                ...prevState,
+                accountId:IdAccount,
+                name:accountCurrent.name,
+                username: accountCurrent.username,
+                email:accountCurrent.email,
+                birthdate: accountCurrent.birthdate,
+                gender: accountCurrent.gender
+
+            }))
         }
         catch(e){
              Alert.alert(
