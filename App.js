@@ -15,7 +15,7 @@ import {
   NavigationContainer,
   createNavigationContainerRef
 } from "@react-navigation/native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
 import DefinitionScreen from "./screens/DefinitionScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SearchComponent from "./components/navigation/SearchComponent";
@@ -50,9 +50,7 @@ export default function App() {
         <NavigationContainer ref={rootNavigation}>
           <Tab.Navigator
             initialRouteName="Home"
-            screenOptions={{
-              activeTintColor: "#e91e63"
-            }}
+            screenOptions={{ activeTintColor: "#e91e63" }}
           >
             <Tab.Screen
               name="Home"
@@ -65,11 +63,9 @@ export default function App() {
                 headerTitle: ({ navigation }) => {
                   return <SearchComponent />;
                 },
-
                 headerRight: () => {
                   return <RightBarHeader />;
                 },
-
                 headerLeft: () => {
                   return <LeftBarHeader />;
                 }
@@ -82,43 +78,44 @@ export default function App() {
                 tabBarVisible: false,
                 tabBarLabel: "Số tay",
                 tabBarIcon: ({ color, size }) =>
-                  <FontAwesome name="star" color={color} size={size} />
-                // headerTitle: () => {
-                //     return <SearchComponent />;
-                // },
-                //
-                // headerRight: () => {
-                //     return <RightBarHeader />;
-                // },
-                //
-                // headerLeft: () => {
-                //     return (
-                //         <Ionicons
-                //             name="arrow-back-sharp"
-                //             size={24}
-                //             color="#2499FF"
-                //             style={{ marginLeft: 10 }}
-                //         />
-                //     );
-                // }
-              }}
+                  <FontAwesome name="book" size={size} color={color} />
+              }
+              // headerTitle: () => {
+              //     return <SearchComponent />;
+              // },
+              //
+              // headerRight: () => {
+              //     return <RightBarHeader />;
+              // },
+              //
+              // headerLeft: () => {
+              //     return (
+              //         <Ionicons
+              //             name="arrow-back-sharp"
+              //             size={24}
+              //             color="#2499FF"
+              //             style={{ marginLeft: 10 }}
+              //         />
+              //     );
+              // }
+              }
             />
             <Tab.Screen
               name="Lesson"
               component={LessonStack}
               options={{
-                tabBarLabel: "Lesson",
+                tabBarLabel: "Bài học",
                 tabBarIcon: ({ color, size }) =>
-                  <FontAwesome name="star" color={color} size={size} />
+                  <AntDesign name="play" size={size} color={color} />
               }}
             />
             <Tab.Screen
-              name="profileStack"
-              component={ProfileStack}
+              name="Profile của tôi "
+              component={() => ProfileStack({ setLoggedIn })}
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: ({ color, size }) =>
-                  <FontAwesome name="star" color={color} size={size} />
+                  <FontAwesome name="user-circle-o" size={size} color={color} />
               }}
             />
             {/*<Tab.Screen*/}
@@ -144,6 +141,7 @@ export default function App() {
             {/*    }}*/}
             {/*/>*/}
           </Tab.Navigator>
+          {/* <LoginStack setLoggedIn={setLoggedIn} /> */}
         </NavigationContainer>
       </Provider>
     );

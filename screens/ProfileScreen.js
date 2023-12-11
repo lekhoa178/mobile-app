@@ -4,38 +4,20 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    View,DatePickerAndroid,Button
+    View,DatePickerAndroid,Button,Alert
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import {useState,useEffect} from "react";
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { getAccountId } from "../helpers";
-import {getAccountByAccountId} from "../service/AccountService";
+import {getAccountByAccountId, updateAccount} from "../service/AccountService";
 
-function ProfileScreen() {
-    const [selectedDate, setSelectedDate] = useState("");
-    const openDatePicker = async () => {
-        try {
-            const { action, year, month, day } = await DatePickerAndroid.open({
-                // Set initial date
-                date: new Date(),
-                // Set minimum date (optional)
-                minDate: new Date(2000, 0, 1),
-                // Set maximum date (optional)
-                maxDate: new Date(2025, 11, 31),
-            });
-            if (action !== DatePickerAndroid.dismissedAction) {
-                // Selected date
-                const selected = new Date(year, month, day);
-                setSelectedDate(selected.toISOString().split('T')[0]);
-            }
-        } catch ({ code, message }) {
-            console.warn('Cannot open date picker', message);
-        }
-    };
+function ProfileScreen({ navigation, route }) {
     const [user,setUser] = useState({
+        accountId:0,
         name:"",
         username:"",
         birthdate: "",
@@ -50,9 +32,11 @@ function ProfileScreen() {
             const IdAccount = await getAccountId();
             setAccountId(IdAccount);
             const accountCurrent = await getAccountByAccountId(IdAccount);
+            console.log("Account current: ", accountCurrent);
             setAccount(accountCurrent);
             setUser(prevState => ({
                 ...prevState,
+                accountId:IdAccount,
                 name:accountCurrent.name,
                 username: accountCurrent.username,
                 email:accountCurrent.email,
@@ -63,6 +47,33 @@ function ProfileScreen() {
         };
         fetchData();
     }, [])
+    const handleGenderChange = (value) => {
+    setUser(prevState => ({
+                ...prevState,
+                gender: value
+            }));
+
+    };
+    async function submitChange(){
+        try {
+            console.log("User: ",user);
+            await updateAccount(user);
+             Alert.alert(
+          "Thông báo",
+          "Cập nhật thông tin tài khoản thành công",
+          [{ text: "OK", onPress: () => console.log("") }],
+          { cancelable: false }
+        );
+        }
+        catch(e){
+             Alert.alert(
+          "Thông báo",
+          "Cập nhật thất bại",
+          [{ text: "OK", onPress: () => console.log("") }],
+          { cancelable: false }
+        );
+        }
+    }
 
     if(!account){return (<></>)}
     if (edit) {return(
@@ -70,7 +81,7 @@ function ProfileScreen() {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.logout}>
-                        <FontAwesome5 name="door-open" size={20} color="#7599ff" />
+                        <FontAwesome5 name="door-open" size={20} color="#7599ff" onPress={()=> { route.params.setLoggedIn(false)}}/>
                     </View>
                     <View style={styles.edit}>
                         <FontAwesome name="edit" size={25} color="#7599ff" onPress={()=> setEdit(!edit)} />
@@ -93,11 +104,24 @@ function ProfileScreen() {
                     </View>
                     <View style={styles.Line}>
                         <FontAwesome name="birthday-cake" size={24} color="#7599ff" />
-                        <Text style={styles.textInfoLine}> {account.birthdate.slice(0,account.birthdate.indexOf('T'))}</Text>
+                        <Text style={styles.textInfoLine}> {account.birthdate !== null ? account.birthdate.slice(0,account.birthdate.indexOf('T')) : "Chưa nhập ngày sinh"}</Text>
                     </View>
                     <View style={styles.Line}>
                         <Ionicons name="transgender-sharp" size={24} color="#7599ff" />
-                        <Text style={styles.textInfoLine}>{account.gender == 1 ? "Troai" : "Géi"}</Text>
+                        {/* <Text style={styles.textInfoLine}>{account.gender == 1 ? "Trai" : "Gái"}</Text> */}
+                        <View style={styles.selectGender}>
+                            <Button
+                                title="Female"
+                                onPress={() => handleGenderChange(false)}
+                                color={user.gender === false ? '#7599ff' : 'gray'}
+                            />
+                            <Button
+                                title="male"
+                                onPress={() => handleGenderChange(true)}
+                                color={user.gender === true ? '#7599ff' : 'gray'}
+                            />
+
+                        </View>
                     </View>
                     <View style={styles.Line}>
                         <FontAwesome name="user" size={24} color="#7599ff" />
@@ -109,7 +133,7 @@ function ProfileScreen() {
                     </View>
                     <View style={styles.LineSave}>
                         <Text style={styles.textLine}> Xác nhận đổi</Text>
-                        <Ionicons name="save" size={24} color="#7599ff" />
+                        <Ionicons name="save" size={24} color="#7599ff" onPress={submitChange}/>
                     </View>
                 </View>
             </ScrollView>
@@ -121,7 +145,7 @@ function ProfileScreen() {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.logout}>
-                        <FontAwesome5 name="door-open" size={20} color="#7599ff" />
+                        <FontAwesome5 name="door-open" size={20} color="#7599ff" onPress={()=> { route.params.setLoggedIn(false)}}/>
                     </View>
                     <View style={styles.edit}>
                         <FontAwesome name="edit" size={25} color="#7599ff" onPress={()=> setEdit(!edit)} />
@@ -198,6 +222,13 @@ const styles = StyleSheet.create({
         width:Dimensions.get("window").width * 0.8,
         borderBottomWidth:0.5,
         borderColor:"#eee"
+    },
+    selectGender: {
+        flex:1,
+        flexDirection:"row",
+        marginLeft:15,
+        gap:20,
+        marginBottom:1
     },
     LineSave: {
         flex:1,

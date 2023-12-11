@@ -13,8 +13,6 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { setSearchWords, setWords } from "../../context/actions/SearchAction";
 import { searchByWord } from "../../service/DictionaryService";
-// import { setWords } from "../../context/actions/SearchAction";
-// import styled from 'styled-components/native';
 
 const SuggestionListView = styled.View`
   position: absolute;
@@ -32,7 +30,7 @@ function SearchComponent() {
   const [suggestions, setSuggestions] = useState([]);
   const handleChangeInput = function(text) {
     setInput(text);
-    dispatch(setWords(text));
+    dispatch(setWords(text.replaceAll(" ", "_")));
   };
   useEffect(
     () => {

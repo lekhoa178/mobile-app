@@ -1,19 +1,61 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  Alert
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { registerService } from "../service/LoginService";
+
 const marginLeft = 20;
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleGoback = () => {
     navigation.goBack();
-    // navigation.navigate("Definitions");
   };
 
-  const handleSignUp = () => {};
+  const handleSignUp = async () => {
+    console.log("Email: ", email);
+    console.log("username: ", username);
+    console.log("password: ", password);
+    console.log("Repeat Password: ", repeatPassword);
+    if (password != repeatPassword) {
+      Alert.alert(
+        "Đăng kí thất bại",
+        "Mật khẩu nhập lại không khớp với mật khẩu đã nhập",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    } else {
+      try {
+        await registerService(email, username, password);
+        Alert.alert(
+          "Đăng kí thành công",
+          "Tài khoản đăng kí thành công, mời bạn đăng nhập",
+          [{ text: "OK", onPress: () => handleGoback() }],
+          { cancelable: false }
+        );
+      }
+      catch(e){
+        Alert.alert(
+          "Đăng kí thất bại",
+          "Hệ thống hiện tại bị lỗi, mời bạn đăng lí lại lúc sau",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+      }
+      
+
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -46,8 +88,8 @@ const SignUpScreen = ({ navigation }) => {
         style={styles.input}
         placeholder="Enter repeat password"
         secureTextEntry={true}
-        value={password}
-        onChangeText={text => setPassword(text)}
+        value={repeatPassword}
+        onChangeText={text => setRepeatPassword(text)}
       />
 
       <Pressable

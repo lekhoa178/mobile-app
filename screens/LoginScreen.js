@@ -10,9 +10,7 @@ import {
 import { authenticate } from "../service/ApiService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { login } from "../service/LoginService";
-// import Constants from "expo-constants";
-// import { Network } from "expo-network";
-// const host = Constants.manifest.hostUri | null;
+
 const marginLeft = 20;
 const LoginScreen = ({ navigation, route }) => {
   const [username, setUsername] = useState("");
@@ -33,7 +31,6 @@ const LoginScreen = ({ navigation, route }) => {
           [
             {
               text: 'Cancel',
-              // onPress: () => Alert.alert('Cancel Pressed'),
               style: 'cancel',
             },
           ],
