@@ -35,15 +35,34 @@ import { setNotebooks } from "./context/actions/NotebookAction";
 import { getAccountId } from "./helpers";
 import { getAllNotebookFromAccount } from "./service/NotebookService";
 import LoginScreen from "./screens/LoginScreen";
+import { checkTokenExpired } from "./service/AccountService";
 
 import { LogBox } from "react-native";
 import ProfileStack from "./components/stack/ProfileStack";
+import { getToken } from "./service/LoginService";
 // LogBox.ignoreLogs(['Asyncstorage: ...']); // Ignore log notification by message
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const checkToken = async () => {
+      let token = await getToken();
+      let tokenObj = { token };
+      try {
+        let checkExpired = await checkTokenExpired(tokenObj);
+        let result = checkExpired.message;
+        if (result == "false") {
+          setLoggedIn(true);
+        }
+      } catch (err) {
+        console.log("Failed to check token", err);
+      }
+    };
+
+    checkToken();
+  }, []);
   if (loggedIn) {
     return (
       <Provider store={store}>
