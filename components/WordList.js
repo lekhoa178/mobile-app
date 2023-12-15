@@ -32,7 +32,7 @@ function WordList({search}) {
     <FlatList
       style={styles.container}
       data={resultState}
-      keyExtractor={item => item.id}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={itemData => WordCard(itemData, dispatch, search)}
     />
   );

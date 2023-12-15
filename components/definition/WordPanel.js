@@ -29,7 +29,7 @@ function WordPanel({ word, def, dispatch}) {
         {word.replaceAll("_", " ")}
       </Title>
       <View style={styles.utilityContainer}>
-        <Volume style={styles.volume} word={word} />
+        <Volume style={styles.volume} word={word.replaceAll('_', ' ')} />
         <Heart notebook={notebookModel} fav={false} dispatch={dispatch}/>
       </View>
     </View>

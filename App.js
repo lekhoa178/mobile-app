@@ -44,6 +44,8 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const ProfileComponent = () => ProfileStack({ setLoggedIn })
+
   if (loggedIn) {
     return (
       <Provider store={store}>
@@ -111,7 +113,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Profile của tôi "
-              component={() => ProfileStack({ setLoggedIn })}
+              component={ProfileComponent}
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: ({ color, size }) =>
