@@ -61,3 +61,7 @@ export async function login(username, password) {
   // navigate("HomeScreen");
   return result.token;
 }
+export async function logout() {
+  await removeAccountId();
+  await removeToken();
+}

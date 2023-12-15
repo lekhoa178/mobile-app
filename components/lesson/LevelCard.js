@@ -1,14 +1,13 @@
 import { Button, Pressable, StyleSheet, Text, View } from "react-native";
-import {useDispatch, useSelector} from "react-redux";
-import {navigate} from "../../RootNavigation";
-import {setId} from "../../context/actions/LessonAction";
+import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "../../RootNavigation";
+import { setCorrectAnswer, setId } from "../../context/actions/LessonAction";
 
 function LevelCard(itemData, stageId, dispatch) {
-
   function handleNavigation(stageId, levelId) {
-    dispatch(setId({stageId, levelId}));
-    navigate('game');
-
+    dispatch(setId({ stageId, levelId }));
+    dispatch(setCorrectAnswer(0));
+    navigate("game");
   }
 
   let levelStyle = !itemData.item.complete ? { backgroundColor: "#ccc" } : {};

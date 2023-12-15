@@ -13,6 +13,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { getAccountId } from "../helpers";
 import {getAccountByAccountId, updateAccount} from "../service/AccountService";
+import { logout } from "../service/LoginService";
+
 
 function ProfileScreen({ navigation, route }) {
     const [user,setUser] = useState({
@@ -86,6 +88,10 @@ function ProfileScreen({ navigation, route }) {
         );
         }
     }
+    async function logoutApp() {
+        await logout()
+        route.params.setLoggedIn(false)
+    }
 
     if(!account){return (<></>)}
     if (edit) {return(
@@ -93,7 +99,7 @@ function ProfileScreen({ navigation, route }) {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.logout}>
-                        <FontAwesome5 name="door-open" size={20} color="#7599ff" onPress={()=> { route.params.setLoggedIn(false)}}/>
+                        <FontAwesome5 name="door-open" size={20} color="#7599ff" onPress={logoutApp}/>
                     </View>
                     <View style={styles.edit}>
                         <FontAwesome name="edit" size={25} color="#7599ff" onPress={()=> setEdit(!edit)} />
@@ -175,7 +181,7 @@ function ProfileScreen({ navigation, route }) {
                     <View style={styles.Line}>
                         <FontAwesome name="birthday-cake" size={24} color="#7599ff" />
 
-                        <Text style={styles.textInfoLine}> {account.birthdate.slice(0,account.birthdate.indexOf('T'))}</Text>
+                        <Text style={styles.textInfoLine}> {account.birthdate !== null ? account.birthdate.slice(0,account.birthdate.indexOf('T')) : "Chưa nhập ngày sinh"}</Text>
                     </View>
                     <View style={styles.Line}>
                         <Ionicons name="transgender-sharp" size={24} color="#7599ff" />

@@ -68,3 +68,10 @@ export const getAccountById = async function(accountId) {
 export const updateAccountApi = async function(account) {
   return await AJAX(API_URL + `/api/auth/updateAccount`, "POST", account);
 };
+export const checkToken = async function(token) {
+  return await AJAX_REQUEST(
+    API_URL + `/api/auth/checkTokenExpired`,
+    "POST",
+    token
+  );
+};
