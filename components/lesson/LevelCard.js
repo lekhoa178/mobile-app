@@ -4,7 +4,7 @@ import { navigate } from "../../RootNavigation";
 import { setCorrectAnswer, setId } from "../../context/actions/LessonAction";
 
 function LevelCard(itemData, stageId, dispatch) {
-  function handleNavigation(stageId, levelId) {
+  function handleNavigation(stageId, levelId, complete) {
     dispatch(setId({ stageId, levelId }));
     dispatch(setCorrectAnswer(0));
     navigate("game");
@@ -13,7 +13,7 @@ function LevelCard(itemData, stageId, dispatch) {
   let levelStyle = !itemData.item.complete ? { backgroundColor: "#ccc" } : {};
 
   return (
-    <Pressable onPress={() => handleNavigation(stageId, itemData.item.levelId)}>
+    <Pressable onPress={() => handleNavigation(stageId, itemData.item.levelId, itemData.item.complete)}>
       <View style={[styles.levelCard, levelStyle]}>
         <Text>
           Cửa {itemData.index + 1}

@@ -18,10 +18,12 @@ import OptionContainer from "../components/game/OptionContainer";
 import {
   setAnswerSentence,
   setCorrectAnswer,
-  setOptionSentence
+  setOptionSentence, setRefresh
 } from "../context/actions/LessonAction";
 import { navigate } from "../RootNavigation";
 import NoticePanel from "../components/ui/NoticePanel";
+import {levelFulfilled} from "../service/ApiService";
+import {getAccountId} from "../helpers";
 
 let questionsType = [];
 let correctAns = 0;
@@ -29,7 +31,7 @@ let ansWords = [];
 let optWords = [];
 let questionTitle = "";
 
-const totalQuestions = 13;
+const totalQuestions = 3;
 
 function sortRandomly(words) {
   for (let i = words.length - 1; i > 0; i--) {
@@ -71,12 +73,20 @@ function GameScreen() {
     [stageId, levelId]
   );
 
-  const nextQuestion = function() {
+  const nextQuestion = async function() {
     setConfirm(true);
 
     if (curQuestion + 1 >= totalQuestions) {
       dispatch(setCorrectAnswer(correctAns));
-      navigate("finish-game");
+
+      dispatch(setRefresh());
+
+      if (correctAns / totalQuestions > 0.6) {
+        navigate("finish-game");
+        await levelFulfilled(stageId, levelId, await getAccountId());
+      } else {
+        navigate("lose-game");
+      }
       return;
     }
 

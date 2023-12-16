@@ -42,6 +42,10 @@ export const getStages = async function(accountId) {
   return AJAX(API_URL + `/stage/all/${accountId}`);
 };
 
+export const levelFulfilled = async function(stageId, levelId, accountId) {
+  return AJAX(API_URL + `/stage/fulfilled/${stageId}/${levelId}/${accountId}`);
+};
+
 export const getSentences = async function(stageId, levelId, amount) {
   return AJAX(API_URL + `/cfg/sentences/${stageId}/${levelId}/${amount}`);
 };
