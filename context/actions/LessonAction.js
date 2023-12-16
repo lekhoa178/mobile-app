@@ -30,3 +30,6 @@ export const setCorrectAnswer = payload => ({
     type: "SET_CORRECT_ANS",
     payload
 })
+export const setRefresh = () => ({
+    type:"SET_REFRESH"
+})

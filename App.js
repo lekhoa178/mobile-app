@@ -40,8 +40,8 @@ import { checkTokenExpired } from './service/AccountService';
 import { LogBox } from 'react-native';
 import ProfileStack from './components/stack/ProfileStack';
 import { getToken } from './service/LoginService';
-// LogBox.ignoreLogs(['Asyncstorage: ...']); // Ignore log notification by message
-// LogBox.ignoreAllLogs(); //Ignore all log notifications
+LogBox.ignoreLogs(['Asyncstorage: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 const Tab = createBottomTabNavigator();
 
 export default function App() {

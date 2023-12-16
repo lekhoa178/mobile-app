@@ -3,7 +3,8 @@ const initialState = {
     id: {},
     answerSentence: [],
     optionSentence: [],
-    correctAns: 0
+    correctAns: 0,
+    refresh: false
 };
 
 const lessonReducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const lessonReducer = (state = initialState, action) => {
             return {
                 ...state,
                 correctAns: action.payload};
+        case "SET_REFRESH":
+            return {
+                ...state,
+                refresh: !state.refresh
+            }
 
         default:
             return state;

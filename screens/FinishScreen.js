@@ -20,11 +20,11 @@ function FinishGame() {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Way to go,you won!</Text>
-      <Text style={styles.correct}>Correct {correctAns} / 10</Text>
+      <Text style={styles.title}>Chúc mừng bạn vượt qua màn choi!</Text>
+      <Text style={styles.correct}>Đúng {correctAns} / 10</Text>
       <Image source={require("../assets/fun.jpg")} style={styles.image} />
       <Text style={styles.textWin}>
-        Keep practing and give another game a try
+        Tiếp tục giữ phong độ bạn nhé ^^
       </Text>
       <Pressable style={styles.buttonFinish} onPress={handleFinish}>
         <Text style={styles.textConfirm}>CONFIRM</Text>
